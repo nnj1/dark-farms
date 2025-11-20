@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 GlobalVars="*res://src/globalvars.gd"
 MusicPlayer="*res://scenes/musicplayer.tscn"
+UIPlayer="*res://scenes/uiplayer.tscn"
 
 [display]
 
