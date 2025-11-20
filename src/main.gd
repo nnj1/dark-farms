@@ -77,3 +77,7 @@ func gprint(message: String) -> void:
 # Important: If you call print() or push_error() inside this function, 
 # it will NOT recursively call the handler. It will output normally.
 	print(message)
+
+
+func _on_button_pressed() -> void:
+	get_tree().quit()

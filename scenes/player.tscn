@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bv574livpvsp2" path="res://assets/urizen_onebit_tileset__v2d0.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dndtl7vqk664b" path="res://src/player.gd" id="1_g2els"]
-[ext_resource type="Shader" uid="uid://c01l0fm45f4st" path="res://shaders/blacktotransparent.gdshader" id="2_tuyoq"]
+[ext_resource type="Shader" path="res://shaders/blacktotransparent.gdshader" id="2_tuyoq"]
 [ext_resource type="Script" uid="uid://s7n4ov0f88k6" path="res://src/camera_2d.gd" id="3_qhqgy"]
 [ext_resource type="AudioStream" uid="uid://c1gqk4eb3fg5i" path="res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Retro8.mp3" id="4_dqkch"]
 [ext_resource type="AudioStream" uid="uid://deyya2g72sxmy" path="res://assets/sounds/RPG_Essentials_Free/12_Player_Movement_SFX/03_Step_grass_03.wav" id="5_qlg0r"]
@@ -51,7 +51,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tuyoq")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
@@ -67,8 +67,8 @@ speed = 40.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_fjrip")
 sprite_frames = SubResource("SpriteFrames_fjrip")
-autoplay = "default"
-frame_progress = 0.1838662
+frame = 4
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)

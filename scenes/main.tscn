@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ylgluvg6dpeb" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://dc3mdoithg4jt" path="res://assets/atlastexture.tres" id="2_jkv2x"]
 [ext_resource type="Shader" uid="uid://cbkmclkkuxdic" path="res://shaders/crt.gdshader" id="2_trceg"]
-[ext_resource type="PackedScene" uid="uid://blotiwm3s36tq" path="res://scenes/world.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" path="res://scenes/world.tscn" id="5_tbgi4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbj1t"]
 atlas = ExtResource("2_jkv2x")
@@ -118,6 +118,24 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
+[node name="Scroll" type="ScrollContainer" parent="UI/TabContainer/Options"]
+layout_mode = 0
+offset_right = 306.0
+offset_bottom = 110.0
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+
+[node name="Grid" type="GridContainer" parent="UI/TabContainer/Options/Scroll"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 7
+
+[node name="Button" type="Button" parent="UI/TabContainer/Options/Scroll/Grid"]
+layout_mode = 2
+text = "Exit"
+
 [node name="PanelContainer" type="Panel" parent="UI"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -164,3 +182,5 @@ z_index = 1
 [node name="CharacterBody2D" parent="entities" instance=ExtResource("1_o5qli")]
 
 [node name="world" parent="." instance=ExtResource("5_tbgi4")]
+
+[connection signal="pressed" from="UI/TabContainer/Options/Scroll/Grid/Button" to="." method="_on_button_pressed"]

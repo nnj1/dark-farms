@@ -24,8 +24,17 @@ func _physics_process(_delta):
 	# We multiply the normalized direction vector by the desired speed.
 	velocity = input_direction * speed
 	
-	if velocity != Vector2.ZERO and not get_node('walking').playing:
-		get_node('walking').play()
+	if velocity != Vector2.ZERO:
+		if not $AnimatedSprite2D.is_playing():
+			$AnimatedSprite2D.play("default")
+		if not get_node('walking').playing:
+			get_node('walking').play()
+	else:
+		$AnimatedSprite2D.stop()
+	# You can add animation updates here, e.g.,
+	if velocity.x != 0:
+		$AnimatedSprite2D.flip_h = velocity.x < 0
+		
 
 	# 3. Move and Slide
 	# This is the core Godot 4 movement function. It attempts to move the body 
