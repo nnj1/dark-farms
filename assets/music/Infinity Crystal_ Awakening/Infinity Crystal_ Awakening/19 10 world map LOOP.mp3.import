@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dffcurbbrflat"
+path="res://.godot/imported/19 10 world map LOOP.mp3-c0c969ed7d8afdb444af8c83c18998d4.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Infinity Crystal_ Awakening/Infinity Crystal_ Awakening/19 10 world map LOOP.mp3"
+dest_files=["res://.godot/imported/19 10 world map LOOP.mp3-c0c969ed7d8afdb444af8c83c18998d4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bq84x6yealebe"
+path="res://.godot/imported/13 7 battle LOOP.mp3-1b0c9f045cc29d62400021b8c1486e5e.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Infinity Crystal_ Awakening/Infinity Crystal_ Awakening/13 7 battle LOOP.mp3"
+dest_files=["res://.godot/imported/13 7 battle LOOP.mp3-1b0c9f045cc29d62400021b8c1486e5e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

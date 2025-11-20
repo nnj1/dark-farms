@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://brr5uwo01np3y"
+path="res://.godot/imported/33 17 nectar LOOP.mp3-eac535c8d2393cd2a996d3144090d72a.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Infinity Crystal_ Awakening/Infinity Crystal_ Awakening/33 17 nectar LOOP.mp3"
+dest_files=["res://.godot/imported/33 17 nectar LOOP.mp3-eac535c8d2393cd2a996d3144090d72a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

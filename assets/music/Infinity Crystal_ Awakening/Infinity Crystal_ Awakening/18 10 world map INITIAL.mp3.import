@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://u7toxibu0eu"
+path="res://.godot/imported/18 10 world map INITIAL.mp3-a1184809f642e874f1b635414f9ceade.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Infinity Crystal_ Awakening/Infinity Crystal_ Awakening/18 10 world map INITIAL.mp3"
+dest_files=["res://.godot/imported/18 10 world map INITIAL.mp3-a1184809f642e874f1b635414f9ceade.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bmvqwmtno7vm2"
+path="res://.godot/imported/02 1 titles LOOP.mp3-4ee45b876d34bb4cb7aad791e983950f.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Infinity Crystal_ Awakening/Infinity Crystal_ Awakening/02 1 titles LOOP.mp3"
+dest_files=["res://.godot/imported/02 1 titles LOOP.mp3-4ee45b876d34bb4cb7aad791e983950f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
