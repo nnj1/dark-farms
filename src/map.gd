@@ -37,8 +37,8 @@ func _input(event):
 			var tile_atlas_coords: Vector2i = get_cell_atlas_coords(clicked_coords)
 			var tile_source_id: int = get_cell_source_id(clicked_coords)
 			
-			print("Clicked Tile at Map Coords: " + str( clicked_coords))
-			print("Source ID: " + str(tile_source_id) + ", Atlas Coords: " + str(tile_atlas_coords))
+			main_game_node.gprint("Clicked Tile at Map Coords: " + str( clicked_coords))
+			main_game_node.gprint("Source ID: " + str(tile_source_id) + ", Atlas Coords: " + str(tile_atlas_coords))
 			
 			# --- Place your tile click action code here ---
 			# Destroy the tile

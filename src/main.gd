@@ -10,7 +10,7 @@ const SCALE_FACTOR: float = 1.5 # Make it twice as big
 const CURSOR_HOTSPOT: Vector2 = Vector2(0, 0) 
 
 func _ready() -> void:
-		
+			
 	var original_texture = load(ORIGINAL_CURSOR_TEXTURE_PATH)
 
 	if original_texture and original_texture is Texture2D:
@@ -54,3 +54,19 @@ func _process(_delta: float) -> void:
 	# Example: DD-MM-YYYY HH:MM:SS format
 	var custom_datetime_string = "%02d-%02d-%04d %02d:%02d:%02d" % [day, month, year, hour, minute, second]
 	get_node('UI/datetime').text = custom_datetime_string
+
+# The function that will intercept all print calls
+func gprint(message: String) -> void:
+	# Get the current time for logging
+	var time_stamp = Time.get_time_string_from_system()
+
+	# Handle regular prints (print(), push_warning())
+	var formatted_message = "[LOG] [%s] %s" % [time_stamp, message]
+	get_node('UI/PanelContainer/chatbox').text += '\n' + formatted_message 
+	# Add your custom logic here, e.g.,
+	# log_to_file(formatted_message)
+	# display_in_custom_console(formatted_message, Color.WHITE)
+
+# Important: If you call print() or push_error() inside this function, 
+# it will NOT recursively call the handler. It will output normally.
+	print(message)

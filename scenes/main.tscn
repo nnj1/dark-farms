@@ -199,24 +199,21 @@ color = Color(0, 0, 0, 1)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -218.0
+offset_top = -608.0
 offset_right = 310.0
 grow_vertical = 0
 current_tab = 0
 tabs_position = 1
 drag_to_rearrange_enabled = true
+tab_focus_mode = 0
 
-[node name="Inventory" type="Panel" parent="UI/TabContainer"]
+[node name="Inventory" type="GridContainer" parent="UI/TabContainer"]
+z_index = 1
 layout_mode = 2
+size_flags_horizontal = 3
 metadata/_tab_index = 0
 
-[node name="inventory" type="HBoxContainer" parent="UI/TabContainer/Inventory"]
-layout_mode = 1
-offset_right = 80.0
-offset_bottom = 80.0
-size_flags_horizontal = 3
-
-[node name="slot" parent="UI/TabContainer/Inventory/inventory" instance=ExtResource("2_a8y0u")]
+[node name="slot" parent="UI/TabContainer/Inventory" instance=ExtResource("2_a8y0u")]
 layout_mode = 2
 
 [node name="Stats" type="Panel" parent="UI/TabContainer"]
@@ -229,12 +226,36 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
+[node name="PanelContainer" type="Panel" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -843.0
+offset_top = -149.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="chatbox" type="RichTextLabel" parent="UI/PanelContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+scroll_following = true
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 3
 
 [node name="shader" type="CanvasLayer" parent="."]
 layer = 4
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="shader"]
 material = SubResource("ShaderMaterial_a8y0u")
