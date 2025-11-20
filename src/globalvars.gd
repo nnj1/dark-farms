@@ -3,6 +3,44 @@ extends Node
 var player_data
 var lore_data
 
+var BLOCK_DEFINITIONS = {
+	'(0, 7)': {
+		'name': 'dirt1',
+		'poppable': false,
+		'placeable': false
+	},
+	'(1, 7)': {
+		'name': 'dirt2',
+		'poppable': false,
+		'placeable': false
+	},
+	'(2, 7)': {
+		'name': 'dirt3',
+		'poppable': false,
+		'placeable': false
+	},
+	'(0, 34)': {
+		'name': 'tree1',
+		'poppable': true,
+		'placeable': false
+	},
+	'(1, 34)': {
+		'name': 'tree2',
+		'poppable': true,
+		'placeable': false
+	},
+	'(2, 34)': {
+		'name': 'tree3',
+		'poppable': true,
+		'placeable': false
+	},
+	'(3, 34)': {
+		'name': 'tree3',
+		'poppable': true,
+		'placeable': false
+	}
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#get lore data

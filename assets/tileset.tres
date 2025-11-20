@@ -1,6 +1,9 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://cgnnxg4k3hwiu"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cgnnxg4k3hwiu"]
 
 [ext_resource type="Texture2D" uid="uid://bv574livpvsp2" path="res://assets/urizen_onebit_tileset__v2d0.png" id="1_l70by"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_l70by"]
+tile_data = PackedInt32Array(0, 0, 41, 65536, 196608, 41, 131072, 393216, 41, 1, 65536, 41, 65537, 589824, 41, 131073, 458752, 41, 2, 131072, 41, 65538, 327680, 41, 131074, 524288, 41)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_choun"]
 
@@ -10316,6 +10319,8 @@ texture_region_size = Vector2i(12, 12)
 205:49/0 = 0
 
 [resource]
+tile_size = Vector2i(12, 12)
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_choun")
 sources/0 = SubResource("TileSetAtlasSource_sugp2")
+pattern_0 = SubResource("TileMapPattern_l70by")

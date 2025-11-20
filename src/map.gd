@@ -35,22 +35,26 @@ func _input(event):
 			
 			# Optionally, you can get the tile's Source ID and Atlas Coords
 			var tile_atlas_coords: Vector2i = get_cell_atlas_coords(clicked_coords)
-			var tile_source_id: int = get_cell_source_id(clicked_coords)
+			var _tile_source_id: int = get_cell_source_id(clicked_coords)
 			
-			main_game_node.gprint("Clicked Tile at Map Coords: " + str( clicked_coords))
-			main_game_node.gprint("Source ID: " + str(tile_source_id) + ", Atlas Coords: " + str(tile_atlas_coords))
+			#main_game_node.gprint("Clicked Tile at Map Coords: " + str( clicked_coords))
+			#main_game_node.gprint("Source ID: " + str(tile_source_id) + ", Atlas Coords: " + str(tile_atlas_coords))
 			
 			# --- Place your tile click action code here ---
-			# Destroy the tile
-			get_node('poppedtile').play()
-			set_cell(clicked_coords, -1)
-			
-			# Example: Call a function specific to this tile
-			pop_tile(local_mouse_pos, tile_atlas_coords)
+			if str(tile_atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+				var block_definition = GlobalVars.BLOCK_DEFINITIONS[str(tile_atlas_coords)]
+				if block_definition.poppable:
+					# Destroy the tile
+					get_node('poppedtile').play()
+					set_cell(clicked_coords, -1)
+					# Example: Call a function specific to this tile
+					pop_tile(local_mouse_pos, tile_atlas_coords)
 			
 func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i):
 	var popped_block = load('res://scenes/block.tscn').instantiate()
-	popped_block.get_node('icon').texture = get_texture_from_atlas_coords(tile_atlas_coords)
+	# eventually look up names of blocks based on tile atlas coordinates, for now just
+	# use the coordinates as the name
+	popped_block.prepare(str(tile_atlas_coords), get_texture_from_atlas_coords(tile_atlas_coords))
 	popped_block.position = local_mouse_pos
 	main_game_node.add_child(popped_block)
 	
@@ -72,16 +76,19 @@ func _process(_delta: float):
 	var tile_data = get_cell_tile_data(cell_pos)
 
 	if tile_data:
-		# Show the marker and set its position
-		highlighted_marker.visible = true
-		highlighted_marker.position = to_global(marker_world_pos - Vector2(8,8))
-		
-		if cell_pos != last_hovered_coords:
-				# 4. Play the sound and update the last hovered coordinates
-				#if not mouseover_sound_player.is_playing():
-				get_node('mouseover').play()
+		var atlas_coords = get_cell_atlas_coords(cell_pos)
+		if str(atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+			if GlobalVars.BLOCK_DEFINITIONS[str(atlas_coords)].poppable:
+				# Show the marker and set its position
+				highlighted_marker.visible = true
+				highlighted_marker.position = to_global(marker_world_pos - Vector2(7,7))
 				
-				last_hovered_coords = cell_pos
+				if cell_pos != last_hovered_coords:
+						# 4. Play the sound and update the last hovered coordinates
+						#if not mouseover_sound_player.is_playing():
+						get_node('mouseover').play()
+						
+						last_hovered_coords = cell_pos
 	else:
 		# Hide the marker if the mouse is outside the defined tiles
 		highlighted_marker.visible = false

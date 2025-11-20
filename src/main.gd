@@ -39,7 +39,14 @@ func _ready() -> void:
 		print("Cursor scaled successfully using Image.resize().")
 	else:
 		print("Error: Could not load or cast the original cursor texture.")
-		
+
+func update_inventory_ui(given_inventory) -> void:
+	for slot in get_node('UI/TabContainer/Inventory/Grid').get_children():
+		slot.queue_free()
+	for block_name in given_inventory:
+		var slot = preload('res://scenes/slot.tscn').instantiate()
+		slot.prepare(given_inventory[block_name]['name'], given_inventory[block_name]['count'], given_inventory[block_name]['texture'])
+		get_node('UI/TabContainer/Inventory/Grid').add_child(slot)
 
 func _process(_delta: float) -> void:
 	var datetime_dict = Time.get_datetime_dict_from_system()

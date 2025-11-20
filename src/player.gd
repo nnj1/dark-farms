@@ -4,6 +4,8 @@ var main_game_node = Node2D
 
 var is_player:bool = true
 
+var inventory = {}
+
 # Exported variable allows you to change the speed directly in the Inspector
 @export var speed: float = 400.0 
 
@@ -21,12 +23,21 @@ func _physics_process(_delta):
 	# The velocity variable is built into CharacterBody2D.
 	# We multiply the normalized direction vector by the desired speed.
 	velocity = input_direction * speed
+	
+	if velocity != Vector2.ZERO and not get_node('walking').playing:
+		get_node('walking').play()
 
 	# 3. Move and Slide
 	# This is the core Godot 4 movement function. It attempts to move the body 
 	# and handles collisions, sliding along obstacles.
 	move_and_slide()
 
-func add_block(_block_name:String):
-	#if not get_node('pickup').playing:
+func add_block(block_atlas_coords:String, block_texture: Texture2D):
+	#if not get_node('pickup').playing:	
+	if block_atlas_coords in inventory:
+		inventory[block_atlas_coords]['count'] += 1
+	else:
+		inventory[block_atlas_coords] = {'texture': block_texture, 'count' : 1, 'name': GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name']}
+	main_game_node.gprint('Picked up ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 	get_node('pickup').play()
+	main_game_node.update_inventory_ui(self.inventory)

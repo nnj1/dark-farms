@@ -1,0 +1,191 @@
+[gd_resource type="Resource" script_class="GaeaGraph" load_steps=17 format=3 uid="uid://cph532or4vqht"]
+
+[ext_resource type="Script" uid="uid://cj08rybcfwlle" path="res://addons/gaea/resources/materials/gaea_material.gd" id="1_vgmhd"]
+[ext_resource type="Script" uid="uid://e45byecr4gi6" path="res://addons/gaea/resources/materials/data/tilemap_material.gd" id="2_2txkn"]
+[ext_resource type="Script" uid="uid://dtocuov1r8agi" path="res://addons/gaea/resources/materials/distribution/pointwise_random_material.gd" id="3_6344c"]
+[ext_resource type="Script" uid="uid://3qsmwhn2sk47" path="res://addons/gaea/resources/gaea_layer.gd" id="4_hiwci"]
+[ext_resource type="Script" uid="uid://dae6umbqb872e" path="res://addons/gaea/resources/gaea_graph.gd" id="5_tsdey"]
+
+[sub_resource type="Resource" id="Resource_jkv2x"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(0, 34)
+preview_color = Color(0.67010653, 0.7136667, 0.088037625, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_choun"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(1, 34)
+preview_color = Color(0.52708226, 0.09737124, 0.8490212, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_ya4ey"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(2, 34)
+preview_color = Color(0.8360945, 0.8586286, 0.8582248, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_vgmhd"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(3, 34)
+preview_color = Color(0.7301451, 0.99348855, 0.14060168, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_jbj1t"]
+script = ExtResource("3_6344c")
+materials = Array[ExtResource("1_vgmhd")]([SubResource("Resource_jkv2x"), SubResource("Resource_choun"), SubResource("Resource_ya4ey"), SubResource("Resource_vgmhd")])
+weights = PackedFloat32Array(100, 100, 100, 100)
+preview_color = Color(0.681849, 0.65676695, 0.34076813, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_51q7q"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(0, 7)
+preview_color = Color(0.5601795, 0.77409035, 0.96291924, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_cgqjm"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(1, 7)
+preview_color = Color(0.36686587, 0.4067027, 0.9524519, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_qd44r"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(2, 7)
+preview_color = Color(0.79164356, 0.061015077, 0.63248235, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_qc4a6"]
+script = ExtResource("3_6344c")
+materials = Array[ExtResource("1_vgmhd")]([SubResource("Resource_51q7q"), SubResource("Resource_cgqjm"), SubResource("Resource_qd44r")])
+weights = PackedFloat32Array(100, 100, 100)
+preview_color = Color(0.1906625, 0.12514153, 0.099358134, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_2txkn"]
+script = ExtResource("2_2txkn")
+type = 2
+preview_color = Color(0.5306914, 0.5769061, 0.6560712, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_eb6dy"]
+script = ExtResource("4_hiwci")
+
+[resource]
+script = ExtResource("5_tsdey")
+layers = Array[ExtResource("4_hiwci")]([SubResource("Resource_eb6dy")])
+save_version = 5
+_connections = Array[StringName]([&"1-0-4-0", &"2-0-4-1", &"1-0-5-0", &"6-0-5-1", &"4-0-7-1", &"5-0-7-0", &"7-0-0-0", &"8-0-7-2", &"9-0-8-1", &"1-0-8-0"])
+_node_data = Dictionary[int, Dictionary]({
+0: {
+&"position": Vector2(480, -40),
+&"salt": 2264621791,
+&"type": 0,
+&"uid": "uid://dol7xviglksx4"
+},
+1: {
+&"arguments": {
+&"frequency": 0.05
+},
+&"position": Vector2(-540, -140),
+&"salt": 4032136548,
+&"type": 0,
+&"uid": "uid://cgjyi804j05dy"
+},
+2: {
+&"arguments": {
+&"name": "MaterialParameter"
+},
+&"position": Vector2(-540, 140),
+&"salt": 1737610552,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+4: {
+&"arguments": {
+&"range": {
+"max": 1.0,
+"min": 0.48
+}
+},
+&"position": Vector2(-160, 0),
+&"salt": 248869744,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+5: {
+&"arguments": {
+&"range": {
+"max": 0.45,
+"min": 0.0
+}
+},
+&"position": Vector2(-160, 260),
+&"salt": 1673072579,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+6: {
+&"arguments": {
+&"name": "MaterialParameter2"
+},
+&"position": Vector2(-540, 320),
+&"salt": 3164991049,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+7: {
+&"position": Vector2(240, 60),
+&"salt": 3258738603,
+&"type": 0,
+&"uid": "uid://d2f6bjkxcn7jl"
+},
+8: {
+&"arguments": {
+&"range": {
+"max": 0.26,
+"min": 0.19
+}
+},
+&"position": Vector2(-160, 540),
+&"salt": 1789051858,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+9: {
+&"arguments": {
+&"name": "MaterialParameter3"
+},
+&"position": Vector2(-500, 580),
+&"salt": 3478552634,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+}
+})
+_parameters = Dictionary[StringName, Variant]({
+&"MaterialParameter": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": "MaterialParameter",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_jbj1t")
+},
+&"MaterialParameter2": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": "MaterialParameter2",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_qc4a6")
+},
+&"MaterialParameter3": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": "MaterialParameter3",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_2txkn")
+}
+})
+metadata/_custom_type_script = "uid://dae6umbqb872e"

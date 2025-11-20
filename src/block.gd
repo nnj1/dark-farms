@@ -8,6 +8,17 @@ const MAX_SPEED: float = 200.0 # Fast speed for attraction
 const ATTRACT_DISTANCE: float = 50.0 # Distance to start moving
 const ACCELERATION: float = 250.0 # How quickly the item speeds up
 
+var block_type: String
+var block_texture: Texture2D
+
+func prepare(given_block_type:String, given_block_texture):
+	self.block_type = given_block_type
+	self.block_texture = given_block_texture
+	get_node('icon').texture = self.block_texture
+	
+func _ready() -> void:
+	pass
+
 func _process(delta):
 	if target_node:
 		var distance_to_target = global_position.distance_to(target_node.global_position)
@@ -31,7 +42,7 @@ func _process(delta):
 			# Optional: Snap to target when very close (prevents jiggling)
 			if distance_to_target < 15:
 				global_position = target_node.global_position
-				target_node.add_block('default_block_type')
+				target_node.add_block(self.block_type, self.block_texture)
 				queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
