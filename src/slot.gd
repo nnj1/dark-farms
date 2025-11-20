@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 
 var block_name: String
 
