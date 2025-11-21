@@ -1,10 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvi1ilpwuasyd"]
+[gd_scene load_steps=10 format=3 uid="uid://bvi1ilpwuasyd"]
 
 [ext_resource type="Script" uid="uid://cgclnyaddq7d5" path="res://src/main.gd" id="1_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://ylgluvg6dpeb" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://dc3mdoithg4jt" path="res://assets/atlastexture.tres" id="2_jkv2x"]
+[ext_resource type="Shader" uid="uid://c01l0fm45f4st" path="res://shaders/blacktotransparent.gdshader" id="2_tefeu"]
 [ext_resource type="Shader" uid="uid://cbkmclkkuxdic" path="res://shaders/crt.gdshader" id="2_trceg"]
-[ext_resource type="PackedScene" path="res://scenes/world.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dotn1cw7jasj3" path="res://scenes/world.tscn" id="5_tbgi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
+shader = ExtResource("2_tefeu")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/color_tolerance = 0.01
+shader_parameter/alpha_threshold = 0.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbj1t"]
 atlas = ExtResource("2_jkv2x")
@@ -55,6 +62,7 @@ offset_bottom = 30.0
 grow_horizontal = 0
 
 [node name="heart" type="TextureRect" parent="UI/health"]
+material = SubResource("ShaderMaterial_o6xl0")
 layout_mode = 2
 texture = SubResource("AtlasTexture_jbj1t")
 expand_mode = 2
@@ -179,7 +187,7 @@ color = Color(1, 1, 1, 0)
 [node name="entities" type="Node2D" parent="."]
 z_index = 1
 
-[node name="CharacterBody2D" parent="entities" instance=ExtResource("1_o5qli")]
+[node name="player" parent="entities" instance=ExtResource("1_o5qli")]
 
 [node name="world" parent="." instance=ExtResource("5_tbgi4")]
 

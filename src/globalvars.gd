@@ -21,23 +21,38 @@ var BLOCK_DEFINITIONS = {
 	},
 	'(0, 34)': {
 		'name': 'tree1',
-		'poppable': true,
+		'poppable': '(0, 23)',
 		'placeable': false
 	},
 	'(1, 34)': {
 		'name': 'tree2',
-		'poppable': true,
+		'poppable': '(0, 23)',
 		'placeable': false
 	},
 	'(2, 34)': {
 		'name': 'tree3',
-		'poppable': true,
+		'poppable': '(0, 23)',
 		'placeable': false
 	},
 	'(3, 34)': {
 		'name': 'tree3',
-		'poppable': true,
+		'poppable': '(0, 23)',
 		'placeable': false
+	},
+	'(15, 34)': {
+		'name': 'quarry',
+		'poppable': '(79, 20)',
+		'placeable': false
+	},
+	'(79, 20)': {
+		'name': 'stone',
+		'poppable': true,
+		'placeable': true
+	},
+	'(0, 23)': {
+		'name': 'wood',
+		'poppable': true,
+		'placeable': true
 	}
 }
 

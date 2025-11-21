@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GaeaGraph" load_steps=17 format=3 uid="uid://cph532or4vqht"]
+[gd_resource type="Resource" script_class="GaeaGraph" load_steps=18 format=3 uid="uid://cph532or4vqht"]
 
 [ext_resource type="Script" uid="uid://cj08rybcfwlle" path="res://addons/gaea/resources/materials/gaea_material.gd" id="1_vgmhd"]
 [ext_resource type="Script" uid="uid://e45byecr4gi6" path="res://addons/gaea/resources/materials/data/tilemap_material.gd" id="2_2txkn"]
@@ -68,6 +68,12 @@ type = 2
 preview_color = Color(0.5306914, 0.5769061, 0.6560712, 1)
 metadata/_custom_type_script = "uid://e45byecr4gi6"
 
+[sub_resource type="Resource" id="Resource_6344c"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(15, 34)
+preview_color = Color(0.17847955, 0.3241324, 0.22656158, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
 [sub_resource type="Resource" id="Resource_eb6dy"]
 script = ExtResource("4_hiwci")
 
@@ -75,7 +81,7 @@ script = ExtResource("4_hiwci")
 script = ExtResource("5_tsdey")
 layers = Array[ExtResource("4_hiwci")]([SubResource("Resource_eb6dy")])
 save_version = 5
-_connections = Array[StringName]([&"1-0-4-0", &"2-0-4-1", &"1-0-5-0", &"6-0-5-1", &"4-0-7-1", &"5-0-7-0", &"7-0-0-0", &"8-0-7-2", &"9-0-8-1", &"1-0-8-0"])
+_connections = Array[StringName]([&"1-0-4-0", &"2-0-4-1", &"1-0-5-0", &"6-0-5-1", &"4-0-7-1", &"5-0-7-0", &"7-0-0-0", &"8-0-7-2", &"9-0-8-1", &"1-0-8-0", &"11-0-10-1", &"1-0-10-0", &"10-0-7-3"])
 _node_data = Dictionary[int, Dictionary]({
 0: {
 &"position": Vector2(480, -40),
@@ -108,7 +114,7 @@ _node_data = Dictionary[int, Dictionary]({
 "min": 0.48
 }
 },
-&"position": Vector2(-160, 0),
+&"position": Vector2(-160, -160),
 &"salt": 248869744,
 &"type": 0,
 &"uid": "uid://djjvx650evm0n"
@@ -120,7 +126,7 @@ _node_data = Dictionary[int, Dictionary]({
 "min": 0.0
 }
 },
-&"position": Vector2(-160, 260),
+&"position": Vector2(-160, 100),
 &"salt": 1673072579,
 &"type": 0,
 &"uid": "uid://djjvx650evm0n"
@@ -129,7 +135,7 @@ _node_data = Dictionary[int, Dictionary]({
 &"arguments": {
 &"name": "MaterialParameter2"
 },
-&"position": Vector2(-540, 320),
+&"position": Vector2(-540, 260),
 &"salt": 3164991049,
 &"type": 0,
 &"uid": "uid://cqs1w714pbfql"
@@ -147,7 +153,7 @@ _node_data = Dictionary[int, Dictionary]({
 "min": 0.19
 }
 },
-&"position": Vector2(-160, 540),
+&"position": Vector2(-160, 360),
 &"salt": 1789051858,
 &"type": 0,
 &"uid": "uid://djjvx650evm0n"
@@ -156,8 +162,29 @@ _node_data = Dictionary[int, Dictionary]({
 &"arguments": {
 &"name": "MaterialParameter3"
 },
-&"position": Vector2(-500, 580),
+&"position": Vector2(-540, 380),
 &"salt": 3478552634,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+10: {
+&"arguments": {
+&"range": {
+"max": 0.34,
+"min": 0.32
+}
+},
+&"position": Vector2(-160, 620),
+&"salt": 3773974402,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+11: {
+&"arguments": {
+&"name": "MaterialParameter4"
+},
+&"position": Vector2(-540, 500),
+&"salt": 669937356,
 &"type": 0,
 &"uid": "uid://cqs1w714pbfql"
 }
@@ -186,6 +213,14 @@ _parameters = Dictionary[StringName, Variant]({
 "type": 24,
 "usage": 4,
 "value": SubResource("Resource_2txkn")
+},
+&"MaterialParameter4": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": "MaterialParameter4",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_6344c")
 }
 })
 metadata/_custom_type_script = "uid://dae6umbqb872e"

@@ -17,8 +17,8 @@ func _ready() -> void:
 	
 func _input(event):
 	# Check if the event is a left mouse button click being released
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
-		
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
+	if event.is_action_pressed("pop"):
 		# 1. Get the mouse position relative to the TileMap node
 		var local_mouse_pos = get_local_mouse_position()
 
@@ -48,13 +48,14 @@ func _input(event):
 					get_node('poppedtile').play()
 					set_cell(clicked_coords, -1)
 					# Example: Call a function specific to this tile
-					pop_tile(local_mouse_pos, tile_atlas_coords)
+					pop_tile(local_mouse_pos, tile_atlas_coords, block_definition)
 			
-func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i):
+func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_block_definition: Dictionary):
 	var popped_block = load('res://scenes/block.tscn').instantiate()
 	# eventually look up names of blocks based on tile atlas coordinates, for now just
 	# use the coordinates as the name
-	popped_block.prepare(str(tile_atlas_coords), get_texture_from_atlas_coords(tile_atlas_coords))
+	popped_block.prepare(str(tile_atlas_coords) if given_block_definition.poppable is bool else given_block_definition.poppable, 
+						get_texture_from_atlas_coords(tile_atlas_coords) if given_block_definition.poppable is bool else get_texture_from_atlas_coords(str_to_var('Vector2i' + given_block_definition.poppable)))
 	popped_block.position = local_mouse_pos
 	main_game_node.add_child(popped_block)
 	

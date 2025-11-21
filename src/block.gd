@@ -11,8 +11,8 @@ const ACCELERATION: float = 250.0 # How quickly the item speeds up
 var block_type: String
 var block_texture: Texture2D
 
-func prepare(given_block_type:String, given_block_texture):
-	self.block_type = given_block_type
+func prepare(given_atlas_coords:String, given_block_texture):
+	self.block_type = given_atlas_coords
 	self.block_texture = given_block_texture
 	get_node('icon').texture = self.block_texture
 	

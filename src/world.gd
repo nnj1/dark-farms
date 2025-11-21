@@ -1,12 +1,16 @@
 extends Node2D
 
+@onready var main_game_node = get_tree().get_root().get_node('Main')
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# TODO: use gaia to generate the map again if needed
+	
 	# populate the map with animals
 	#Get the used cells in the specified layer.
 	var used_cells = get_node('map').get_used_cells()
+	
+	var valid_player_spawn_coords = []
 
 	# Loop through each used cell's map coordinates.
 	for cell_coords in used_cells:
@@ -21,6 +25,13 @@ func _ready() -> void:
 					var local_position = get_node('map').map_to_local(cell_coords)
 					animal.position = to_global(local_position)
 					get_node('npcs').add_child(animal)
-
+				else:
+					var local_position = get_node('map').map_to_local(cell_coords)
+					valid_player_spawn_coords.append(to_global(local_position))
+				# can also potentially spawn player here
+	
+	# move the player to an appopriate spawn point
+	main_game_node.get_node('entities/player').position = valid_player_spawn_coords.pick_random()
+	
 func _process(_delta: float) -> void:
 	pass
