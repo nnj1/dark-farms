@@ -21,7 +21,7 @@ func play_button_click():
 	if not playing:
 		self.stream = load('res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Retro6.mp3')
 		self.play()
-	
+	 
 # Called when a node is added to the SceneTree
 func _on_SceneTree_node_added(node: Node):
 	_connect_button_signals(node)

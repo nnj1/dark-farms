@@ -81,3 +81,6 @@ func gprint(message: String) -> void:
 
 func _on_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_button_2_pressed() -> void:
+	get_node('world/GaeaGenerator').generate()

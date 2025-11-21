@@ -19,6 +19,7 @@ func _input(event):
 	# Check if the event is a left mouse button click being released
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
 	if event.is_action_pressed("pop"):
+		
 		# 1. Get the mouse position relative to the TileMap node
 		var local_mouse_pos = get_local_mouse_position()
 

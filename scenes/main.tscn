@@ -144,6 +144,10 @@ columns = 7
 layout_mode = 2
 text = "Exit"
 
+[node name="Button2" type="Button" parent="UI/TabContainer/Options/Scroll/Grid"]
+layout_mode = 2
+text = "Regen World"
+
 [node name="PanelContainer" type="Panel" parent="UI"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -192,3 +196,4 @@ z_index = 1
 [node name="world" parent="." instance=ExtResource("5_tbgi4")]
 
 [connection signal="pressed" from="UI/TabContainer/Options/Scroll/Grid/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/TabContainer/Options/Scroll/Grid/Button2" to="." method="_on_button_2_pressed"]

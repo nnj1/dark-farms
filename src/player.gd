@@ -14,6 +14,7 @@ func _ready() -> void:
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
+		
 	# 1. Get Input Direction
 	# This combines the 'ui' input actions (mapped to arrow keys/WASD by default)
 	# into a single normalized Vector2.
@@ -25,12 +26,15 @@ func _physics_process(_delta):
 	velocity = input_direction * speed
 	
 	if velocity != Vector2.ZERO:
-		if not $AnimatedSprite2D.is_playing():
-			$AnimatedSprite2D.play("default")
+		if not $AnimatedSprite2D.is_playing() and not Input.is_action_pressed("pop"):
+			$AnimatedSprite2D.play("walk")
 		if not get_node('walking').playing:
 			get_node('walking').play()
 	else:
-		$AnimatedSprite2D.stop()
+		# play pop animation if needed
+		if Input.is_action_just_pressed("pop"):
+			$AnimatedSprite2D.play("pop")
+			
 	# You can add animation updates here, e.g.,
 	if velocity.x != 0:
 		$AnimatedSprite2D.flip_h = velocity.x < 0

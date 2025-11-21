@@ -3,6 +3,10 @@ extends Node
 var player_data
 var lore_data
 
+# Use the preload() function if you know the file path at compile time.
+# Replace "res://path/to/your_tileset.tres" with your actual file path.
+const TILESET_PATH = "res://assets/tileset.tres"
+
 var BLOCK_DEFINITIONS = {
 	'(0, 7)': {
 		'name': 'dirt1',
@@ -56,6 +60,53 @@ var BLOCK_DEFINITIONS = {
 	}
 }
 
+# adds every other tile in the atlas not already defined and by default make it poppable and placeable
+# for debugging and testing purposes
+func load_other_block_definitions():
+	# Load the TileSet resource
+	var tileset: TileSet = load(TILESET_PATH)
+	
+	if tileset == null:
+		print("Error: Could not load TileSet resource from path: ", TILESET_PATH)
+		return
+	
+	# 1. Get all source IDs in the TileSet
+	var source_ids: Array[int] = [0]
+
+	for source_id in source_ids:
+		# 2. Get the specific TileSetSource
+		var tile_source: TileSetSource = tileset.get_source(source_id)
+		
+		# 3. Check if the source is an Atlas Source (the type that holds coordinates)
+		if tile_source is TileSetAtlasSource:
+			var atlas_source: TileSetAtlasSource = tile_source as TileSetAtlasSource
+			
+			var water_pattern = tileset.get_pattern(0)
+			var water_pattern_tiles = []
+			for x in range(water_pattern.get_size().x):
+				for y in range(water_pattern.get_size().y):
+					var local_coord = Vector2i(x, y)
+					var atlas_coord: Vector2i = water_pattern.get_cell_atlas_coords(local_coord)
+					water_pattern_tiles.append(str(atlas_coord))
+					
+			# Iterate over the primary tiles in the atlas (indexed by coordinates)
+			for x in atlas_source.get_atlas_grid_size().x:
+				for y in atlas_source.get_atlas_grid_size().y:
+					var atlas_coords = Vector2i(x, y)
+					if atlas_source.has_tile(atlas_coords):
+						# see if the atlas coords are not in the block definition (or in a special reserved pattern)
+						if not str(atlas_coords) in BLOCK_DEFINITIONS and not str(atlas_coords) in water_pattern_tiles: 
+						
+							# Access the main tile data
+							#var tile_data = atlas_source.get_tile_data(atlas_coords, 0)
+							# Blocks that aren't explicitly defined should not be poppable but could be palced
+							BLOCK_DEFINITIONS[str(atlas_coords)] = {
+								'name': 'GENERI C TILE',
+								'poppable': true,
+								'placeable': true
+							}
+							#print("Added generic tile at Atlas Coords %s: %s" % [atlas_coords, tile_data])
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#get lore data
@@ -63,6 +114,8 @@ func _ready() -> void:
 	#lore_data = JSON.parse_string(file.get_as_text())
 	#file.close()
 	#load_default_player_data()
+	
+	self.load_other_block_definitions()
 	
 	# check if save directory exists
 	var dir = DirAccess.open("user://")
