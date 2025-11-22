@@ -1,17 +1,21 @@
 extends Node2D
 
 # Load the cursor texture at the beginning
-const ORIGINAL_CURSOR_TEXTURE_PATH: String = "res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png"
-const SCALE_FACTOR: float = 1.5 # Make it twice as big
+var CURSOR_TEXTURE_PATH: String
+var SCALE_FACTOR: float 
 
 # Set the hotspot (the active click point) of the cursor.
 # If your image is 64x64, a hotspot of (32, 32) centers the click point.
 # For an arrow cursor, (0, 0) is usually best.
-const CURSOR_HOTSPOT: Vector2 = Vector2(0, 0) 
+var CURSOR_HOTSPOT: Vector2
 
-func _ready() -> void:
-			
-	var original_texture = load(ORIGINAL_CURSOR_TEXTURE_PATH)
+func change_cursor(texture_path:String = "res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png",
+					hotspot: Vector2 = Vector2(0, 0), scale_factor: float = 1.5):
+	CURSOR_TEXTURE_PATH = texture_path
+	SCALE_FACTOR = scale_factor
+	CURSOR_HOTSPOT = hotspot
+	
+	var original_texture = load(CURSOR_TEXTURE_PATH)
 
 	if original_texture and original_texture is Texture2D:
 		var original_image: Image = original_texture.get_image()
@@ -39,6 +43,10 @@ func _ready() -> void:
 		print("Cursor scaled successfully using Image.resize().")
 	else:
 		print("Error: Could not load or cast the original cursor texture.")
+	
+func _ready() -> void:
+	self.change_cursor()
+	
 
 func update_inventory_ui(given_inventory) -> void:
 	for slot in get_node('UI/TabContainer/Inventory/Grid').get_children():

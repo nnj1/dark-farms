@@ -15,7 +15,7 @@ const TARGET_SOURCE_ID: int = 0
 func _ready() -> void:
 	pass
 	
-func _input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	# Check if the event is a left mouse button click being released
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
 	if event.is_action_pressed("pop"):
@@ -50,6 +50,12 @@ func _input(event):
 					set_cell(clicked_coords, -1)
 					# Example: Call a function specific to this tile
 					pop_tile(local_mouse_pos, tile_atlas_coords, block_definition)
+				else:
+					# if not poppable, let player move there
+					main_game_node.get_node('entities/player').move_to(get_global_mouse_position())
+		# if no tile data, direct player to move there
+		else:
+			main_game_node.get_node('entities/player').move_to(get_global_mouse_position())
 			
 func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_block_definition: Dictionary):
 	var popped_block = load('res://scenes/block.tscn').instantiate()

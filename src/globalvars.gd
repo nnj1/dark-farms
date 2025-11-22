@@ -101,7 +101,7 @@ func load_other_block_definitions():
 							#var tile_data = atlas_source.get_tile_data(atlas_coords, 0)
 							# Blocks that aren't explicitly defined should not be poppable but could be palced
 							BLOCK_DEFINITIONS[str(atlas_coords)] = {
-								'name': 'GENERI C TILE',
+								'name': 'GENERIC TILE',
 								'poppable': true,
 								'placeable': true
 							}

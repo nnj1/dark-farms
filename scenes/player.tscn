@@ -68,7 +68,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(7, 12)
+size = Vector2(7, 6)
 
 [node name="player" type="CharacterBody2D"]
 motion_mode = 1
@@ -81,7 +81,7 @@ sprite_frames = SubResource("SpriteFrames_fjrip")
 animation = &"pop"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
+position = Vector2(0.5, 3)
 shape = SubResource("RectangleShape2D_3vyb7")
 
 [node name="Camera2D" type="Camera2D" parent="."]

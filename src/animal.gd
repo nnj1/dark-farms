@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 ## --- Exports & Variables ---
 
+@onready var main_game_node = get_tree().get_root().get_node('Main')
+
 # Movement speed (pixels per second)
 @export var speed: float = 50.0
 
@@ -18,6 +20,7 @@ var current_velocity: Vector2 = Vector2.ZERO
 ## --- Movement Logic ---
 
 func _ready():
+	set_process_input(true)
 	# Be a random animal
 	$AnimatedSprite2D.frame = randi_range(0, 17)
 	# Initialize with the first random movement
@@ -58,3 +61,13 @@ func _set_new_random_velocity():
 	#     $AnimatedSprite2D.play("walk")
 	# else:
 	#     $AnimatedSprite2D.play("idle")
+
+func _on_button_pressed() -> void:
+	main_game_node.get_node('entities/player').stop_mouse_walking()
+	Dialogic.start("animal")
+
+func _on_button_mouse_entered() -> void:
+	main_game_node.change_cursor('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-25.png')
+
+func _on_button_mouse_exited() -> void:
+	main_game_node.change_cursor('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png') # Replace with function body.

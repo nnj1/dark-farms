@@ -6,17 +6,30 @@
 [ext_resource type="Script" uid="uid://3qsmwhn2sk47" path="res://addons/gaea/resources/gaea_layer.gd" id="4_hiwci"]
 [ext_resource type="Script" uid="uid://dae6umbqb872e" path="res://addons/gaea/resources/gaea_graph.gd" id="5_tsdey"]
 
-[sub_resource type="Resource" id="Resource_vgmhd"]
+[sub_resource type="Resource" id="Resource_51q7q"]
 script = ExtResource("2_2txkn")
-type = 2
-preview_color = Color(0.5306914, 0.5769061, 0.6560712, 1)
+atlas_coord = Vector2i(0, 7)
+preview_color = Color(0.29914972, 0.014996234, 0.7849727, 1)
 metadata/_custom_type_script = "uid://e45byecr4gi6"
 
-[sub_resource type="Resource" id="Resource_2txkn"]
+[sub_resource type="Resource" id="Resource_cgqjm"]
 script = ExtResource("2_2txkn")
-atlas_coord = Vector2i(15, 34)
-preview_color = Color(0.17847955, 0.3241324, 0.22656158, 1)
+atlas_coord = Vector2i(1, 7)
+preview_color = Color(0.71651196, 0.9400221, 0.52602565, 1)
 metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_qd44r"]
+script = ExtResource("2_2txkn")
+atlas_coord = Vector2i(2, 7)
+preview_color = Color(0.032482468, 0.0641588, 0.5649672, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_qc4a6"]
+script = ExtResource("3_6344c")
+materials = Array[ExtResource("1_vgmhd")]([SubResource("Resource_51q7q"), SubResource("Resource_cgqjm"), SubResource("Resource_qd44r")])
+weights = PackedFloat32Array(100, 100, 100)
+preview_color = Color(0.1906625, 0.12514153, 0.099358134, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
 
 [sub_resource type="Resource" id="Resource_tsdey"]
 script = ExtResource("2_2txkn")
@@ -49,30 +62,11 @@ weights = PackedFloat32Array(100, 100, 100, 100)
 preview_color = Color(0.48682076, 0.4353442, 0.15353517, 1)
 metadata/_custom_type_script = "uid://dtocuov1r8agi"
 
-[sub_resource type="Resource" id="Resource_51q7q"]
+[sub_resource type="Resource" id="Resource_2txkn"]
 script = ExtResource("2_2txkn")
-atlas_coord = Vector2i(0, 7)
-preview_color = Color(0.29914972, 0.014996234, 0.7849727, 1)
+atlas_coord = Vector2i(15, 34)
+preview_color = Color(0.17847955, 0.3241324, 0.22656158, 1)
 metadata/_custom_type_script = "uid://e45byecr4gi6"
-
-[sub_resource type="Resource" id="Resource_cgqjm"]
-script = ExtResource("2_2txkn")
-atlas_coord = Vector2i(1, 7)
-preview_color = Color(0.71651196, 0.9400221, 0.52602565, 1)
-metadata/_custom_type_script = "uid://e45byecr4gi6"
-
-[sub_resource type="Resource" id="Resource_qd44r"]
-script = ExtResource("2_2txkn")
-atlas_coord = Vector2i(2, 7)
-preview_color = Color(0.032482468, 0.0641588, 0.5649672, 1)
-metadata/_custom_type_script = "uid://e45byecr4gi6"
-
-[sub_resource type="Resource" id="Resource_qc4a6"]
-script = ExtResource("3_6344c")
-materials = Array[ExtResource("1_vgmhd")]([SubResource("Resource_51q7q"), SubResource("Resource_cgqjm"), SubResource("Resource_qd44r")])
-weights = PackedFloat32Array(100, 100, 100)
-preview_color = Color(0.1906625, 0.12514153, 0.099358134, 1)
-metadata/_custom_type_script = "uid://dtocuov1r8agi"
 
 [sub_resource type="Resource" id="Resource_hiwci"]
 script = ExtResource("2_2txkn")
@@ -104,6 +98,12 @@ materials = Array[ExtResource("1_vgmhd")]([SubResource("Resource_hiwci"), SubRes
 weights = PackedFloat32Array(100, 100, 100, 100)
 preview_color = Color(0.84283566, 0.4386269, 0.11645885, 1)
 metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_vgmhd"]
+script = ExtResource("2_2txkn")
+type = 2
+preview_color = Color(0.5306914, 0.5769061, 0.6560712, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
 
 [sub_resource type="Resource" id="Resource_eb6dy"]
 script = ExtResource("4_hiwci")
@@ -153,7 +153,7 @@ _node_data = Dictionary[int, Dictionary]({
 5: {
 &"arguments": {
 &"range": {
-"max": 0.47000000000000003,
+"max": 0.47,
 "min": 0.0
 }
 },

@@ -1,14 +1,12 @@
 [gd_scene load_steps=25 format=3 uid="uid://2ohhup6be3il"]
 
-[ext_resource type="Shader" uid="uid://c01l0fm45f4st" path="res://shaders/blacktotransparent.gdshader" id="1_8dtbx"]
 [ext_resource type="Script" uid="uid://dckx1nohru018" path="res://src/animal.gd" id="1_236rq"]
+[ext_resource type="Shader" uid="uid://bxdscrs7alg38" path="res://shaders/blacktotransparentborder.gdshader" id="2_3v7ex"]
 [ext_resource type="Texture2D" uid="uid://dc3mdoithg4jt" path="res://assets/atlastexture.tres" id="2_236rq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3v7ex"]
-shader = ExtResource("1_8dtbx")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/color_tolerance = 0.01
-shader_parameter/alpha_threshold = 0.5
+shader = ExtResource("2_3v7ex")
+shader_parameter/black_threshold = 0.01
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3c5tq"]
 atlas = ExtResource("2_236rq")
@@ -160,3 +158,13 @@ sprite_frames = SubResource("SpriteFrames_rori6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8dtbx")
+
+[node name="Button" type="TextureButton" parent="."]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

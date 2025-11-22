@@ -1,0 +1,213 @@
+[gd_resource type="Resource" script_class="GaeaGraph" load_steps=15 format=3 uid="uid://basgq43tqpjgm"]
+
+[ext_resource type="Script" uid="uid://3qsmwhn2sk47" path="res://addons/gaea/resources/gaea_layer.gd" id="1_4v2o0"]
+[ext_resource type="Script" uid="uid://cj08rybcfwlle" path="res://addons/gaea/resources/materials/gaea_material.gd" id="1_dinri"]
+[ext_resource type="Script" uid="uid://e45byecr4gi6" path="res://addons/gaea/resources/materials/data/tilemap_material.gd" id="2_3hml4"]
+[ext_resource type="Script" uid="uid://dae6umbqb872e" path="res://addons/gaea/resources/gaea_graph.gd" id="2_rp8u3"]
+[ext_resource type="Script" uid="uid://dtocuov1r8agi" path="res://addons/gaea/resources/materials/distribution/pointwise_random_material.gd" id="3_u6opy"]
+
+[sub_resource type="Resource" id="Resource_cc15m"]
+script = ExtResource("2_3hml4")
+atlas_coord = Vector2i(10, 5)
+preview_color = Color(0.9440541, 0.17282003, 0.690676, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_h4koh"]
+script = ExtResource("2_3hml4")
+atlas_coord = Vector2i(11, 5)
+preview_color = Color(0.34361398, 0.34704968, 0.59112805, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_crn37"]
+script = ExtResource("2_3hml4")
+atlas_coord = Vector2i(12, 5)
+preview_color = Color(0.091738954, 0.32209894, 0.46167284, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_17f7d"]
+script = ExtResource("3_u6opy")
+materials = Array[ExtResource("1_dinri")]([SubResource("Resource_cc15m"), SubResource("Resource_h4koh"), SubResource("Resource_crn37")])
+weights = PackedFloat32Array(100, 100, 100)
+preview_color = Color(0.93403554, 0.82224846, 0.7352212, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_dinri"]
+script = ExtResource("2_3hml4")
+atlas_coord = Vector2i(0, 2)
+preview_color = Color(0.75772005, 0.8003982, 0.22158386, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_3hml4"]
+script = ExtResource("2_3hml4")
+atlas_coord = Vector2i(1, 2)
+preview_color = Color(0.7779199, 0.20927559, 0.7434732, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_u6opy"]
+script = ExtResource("3_u6opy")
+materials = Array[ExtResource("1_dinri")]([SubResource("Resource_dinri"), SubResource("Resource_3hml4")])
+weights = PackedFloat32Array(100, 100)
+preview_color = Color(0.25756, 0.64805025, 0.20156987, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_n8rr0"]
+script = ExtResource("2_3hml4")
+atlas_coord = Vector2i(20, 3)
+preview_color = Color(0.7661416, 0.19223398, 0.32338306, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_m4r3e"]
+script = ExtResource("1_4v2o0")
+
+[resource]
+script = ExtResource("2_rp8u3")
+layers = Array[ExtResource("1_4v2o0")]([SubResource("Resource_m4r3e")])
+save_version = 5
+_connections = Array[StringName]([&"2-0-3-1", &"4-0-0-0", &"3-0-4-0", &"5-0-6-1", &"7-0-8-1", &"6-0-4-2", &"8-0-4-1", &"9-0-3-0", &"9-0-6-0", &"9-0-8-0", &"10-0-9-1", &"1-0-9-0"])
+_node_data = Dictionary[int, Dictionary]({
+0: {
+&"position": Vector2(700, 100),
+&"salt": 3017481047,
+&"type": 0,
+&"uid": "uid://dol7xviglksx4"
+},
+1: {
+&"arguments": {
+&"frequency": 0.13,
+&"lacunarity": 0.0,
+&"octaves": 1.0
+},
+&"enums": [5],
+&"position": Vector2(-1100, 40),
+&"salt": 3423481578,
+&"type": 0,
+&"uid": "uid://cgjyi804j05dy"
+},
+2: {
+&"arguments": {
+&"name": "oldstone"
+},
+&"position": Vector2(-620, 420),
+&"salt": 1204417719,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+3: {
+&"arguments": {
+&"range": {
+"max": 1.0,
+"min": 0.0
+}
+},
+&"position": Vector2(-40, 0),
+&"salt": 3598135045,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+4: {
+&"position": Vector2(440, 40),
+&"salt": 3658011579,
+&"type": 0,
+&"uid": "uid://d2f6bjkxcn7jl"
+},
+5: {
+&"arguments": {
+&"name": "newstone"
+},
+&"position": Vector2(-620, 540),
+&"salt": 3321204031,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+6: {
+&"arguments": {
+&"range": {
+"max": 0.59,
+"min": 0.0
+}
+},
+&"position": Vector2(-40, 320),
+&"salt": 2003231233,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+7: {
+&"arguments": {
+&"name": "walls"
+},
+&"position": Vector2(-620, 660),
+&"salt": 3575286794,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+8: {
+&"arguments": {
+&"range": {
+"max": 0.76,
+"min": 0.5700000000000001
+}
+},
+&"position": Vector2(-60, 600),
+&"salt": 58426247,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+9: {
+&"arguments": {
+&"a": Object(RefCounted,"script":null,"size":Vector3i(0, 0, 0),"position":Vector3i(0, 0, 0),"end":Vector3i(0, 0, 0),"_grid":Dictionary[Vector3i, Variant]({}))
+,
+&"b": 0.0,
+&"edge": 0.0,
+&"exp": 1.5,
+&"from": 0.0,
+&"in_start": 0.0,
+&"in_stop": 0.0,
+&"max": 0.0,
+&"min": 0.0,
+&"out_start": 0.0,
+&"out_stop": 0.0,
+&"to": 0.0
+},
+&"enums": [2],
+&"position": Vector2(-700, 80),
+&"salt": 2173934887,
+&"type": 0,
+&"uid": "uid://c441lj0bi6eyn"
+},
+10: {
+&"arguments": {
+&"value": 2.0
+},
+&"position": Vector2(-900, 280),
+&"salt": 1204417719,
+&"type": 0,
+&"uid": "uid://cq66v7je7qj85"
+}
+})
+_parameters = Dictionary[StringName, Variant]({
+&"newstone": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"newstone",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_u6opy")
+},
+&"oldstone": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"oldstone",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_17f7d")
+},
+&"walls": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"walls",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_n8rr0")
+}
+})
+metadata/_custom_type_script = "uid://dae6umbqb872e"
