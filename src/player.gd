@@ -5,10 +5,13 @@ var main_game_node = Node2D
 var is_player:bool = true
 
 var inventory = {}
+var current_placeable_tile_coords = null
 
 var destination_vector = null
 
 var mouse_walking: bool = false
+
+var in_place_mode: bool = false
 
 # Exported variable allows you to change the speed directly in the Inspector
 @export var speed: float = 400.0 
@@ -81,14 +84,21 @@ func add_block(block_atlas_coords:String, block_texture: Texture2D):
 	get_node('pickup').play()
 	main_game_node.update_inventory_ui(self.inventory)
 
-func place_block(block_atlas_coords:String, tilemap_coords: Vector2i, block_texture: Texture2D):
+func subtract_block(block_atlas_coords:String):
 	if block_atlas_coords in inventory:
 		if inventory[block_atlas_coords]['count'] == 1:
 			main_game_node.gprint('Placed down ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 			inventory.erase(block_atlas_coords)
+			# exit place mode, since we ran out of this block
+			self.in_place_mode = false
+			self.current_placeable_tile_coords = null
 		else:
 			main_game_node.gprint('Placed down ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 			inventory[block_atlas_coords]['count'] -= 1
-		
-		get_node('pickup').play()
+		main_game_node.update_inventory_ui(self.inventory)
+
+func delete_block_from_inventory(block_atlas_coords:String):
+	if block_atlas_coords in inventory:
+		inventory.erase(block_atlas_coords)
+		main_game_node.gprint('Deleted ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 		main_game_node.update_inventory_ui(self.inventory)

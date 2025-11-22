@@ -23,7 +23,6 @@ tile_set = ExtResource("1_0cso3")
 script = ExtResource("2_2klcf")
 
 [node name="marker" type="Panel" parent="."]
-visible = false
 material = SubResource("CanvasItemMaterial_eb6dy")
 offset_right = 14.0
 offset_bottom = 14.0

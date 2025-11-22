@@ -15,6 +15,7 @@ config/description="a farming games"
 run/main_scene="uid://bvi1ilpwuasyd"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://splash.png"
 config/icon="res://icon.svg"
 
 [autoload]

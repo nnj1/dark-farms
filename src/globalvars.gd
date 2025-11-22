@@ -9,54 +9,64 @@ const TILESET_PATH = "res://assets/tileset.tres"
 
 var BLOCK_DEFINITIONS = {
 	'(0, 7)': {
-		'name': 'dirt1',
-		'poppable': false,
-		'placeable': false
+		'name': 'dirt1', # name of the block
+		'poppable': false, # if it can popped out in pop mode
+		'placeable': false, # if it can be placed in place mode
+		'replaceable': true # if it can be replaced in place mode
 	},
 	'(1, 7)': {
 		'name': 'dirt2',
 		'poppable': false,
-		'placeable': false
+		'placeable': false,
+		'replaceable': true
 	},
 	'(2, 7)': {
 		'name': 'dirt3',
 		'poppable': false,
-		'placeable': false
+		'placeable': false,
+		'replaceable': true
 	},
 	'(0, 34)': {
 		'name': 'tree1',
 		'poppable': '(0, 23)',
-		'placeable': false
+		'placeable': false,
+		'replaceable': false
 	},
 	'(1, 34)': {
 		'name': 'tree2',
 		'poppable': '(0, 23)',
-		'placeable': false
+		'placeable': false,
+		'replaceable': false
 	},
 	'(2, 34)': {
 		'name': 'tree3',
 		'poppable': '(0, 23)',
-		'placeable': false
+		'placeable': false,
+		'replaceable': false
 	},
 	'(3, 34)': {
 		'name': 'tree3',
 		'poppable': '(0, 23)',
-		'placeable': false
+		'placeable': false,
+		'replaceable': false
 	},
 	'(15, 34)': {
 		'name': 'quarry',
 		'poppable': '(79, 20)',
-		'placeable': false
+		'placeable': false,
+		'replaceable': false
 	},
 	'(79, 20)': {
 		'name': 'stone',
 		'poppable': true,
-		'placeable': true
+		'placeable': false,
+		'replaceable': false
 	},
 	'(0, 23)': {
 		'name': 'wood',
 		'poppable': true,
-		'placeable': true
+		'placeable': false,
+		'replaceable': false
 	}
 }
 
@@ -103,7 +113,8 @@ func load_other_block_definitions():
 							BLOCK_DEFINITIONS[str(atlas_coords)] = {
 								'name': 'GENERIC TILE',
 								'poppable': true,
-								'placeable': true
+								'placeable': true,
+								'replaceable':false
 							}
 							#print("Added generic tile at Atlas Coords %s: %s" % [atlas_coords, tile_data])
 	

@@ -47,15 +47,20 @@ func change_cursor(texture_path:String = "res://assets/Megabyte Games Mouse Curs
 func _ready() -> void:
 	self.change_cursor()
 	
-
 func update_inventory_ui(given_inventory) -> void:
 	for slot in get_node('UI/TabContainer/Inventory/Grid').get_children():
 		slot.queue_free()
 	for block_name in given_inventory:
 		var slot = preload('res://scenes/slot.tscn').instantiate()
-		slot.prepare(given_inventory[block_name]['name'], given_inventory[block_name]['count'], given_inventory[block_name]['texture'])
+		slot.prepare(given_inventory[block_name]['name'], given_inventory[block_name]['count'], given_inventory[block_name]['texture'], block_name)
 		get_node('UI/TabContainer/Inventory/Grid').add_child(slot)
-
+		
+	# if the player has been in placing mode, activate the slot that they've been placing:
+	if get_node('entities/player').in_place_mode:
+		for slot in get_node('UI/TabContainer/Inventory/Grid').get_children():
+			if slot.atlas_coords_string == get_node('entities/player').current_placeable_tile_coords:
+				slot.activate()
+		
 func _process(_delta: float) -> void:
 	var datetime_dict = Time.get_datetime_dict_from_system()
 

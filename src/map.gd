@@ -16,9 +16,9 @@ func _ready() -> void:
 	pass
 	
 func _unhandled_input(event: InputEvent) -> void:
-	# Check if the event is a left mouse button click being released
+	# CODE FOR POPPING TILES
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
-	if event.is_action_pressed("pop"):
+	if event.is_action_pressed("pop") and not main_game_node.get_node('entities/player').in_place_mode:
 		
 		# 1. Get the mouse position relative to the TileMap node
 		var local_mouse_pos = get_local_mouse_position()
@@ -56,10 +56,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		# if no tile data, direct player to move there
 		else:
 			main_game_node.get_node('entities/player').move_to(get_global_mouse_position())
-			
+	# CODE FOR PLACING TILES
+	if event.is_action_pressed("pop") and main_game_node.get_node('entities/player').in_place_mode:
+		place_tile(main_game_node.get_node('entities/player').current_placeable_tile_coords)
+
 func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_block_definition: Dictionary):
-	
-	
 	var popped_block = load('res://scenes/block.tscn').instantiate()
 	# eventually look up names of blocks based on tile atlas coordinates, for now just
 	# use the coordinates as the name
@@ -68,7 +69,7 @@ func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_bloc
 	popped_block.position = local_mouse_pos
 	main_game_node.add_child(popped_block)
 
-func place_tile(tile_atlas_coords: Vector2i):
+func place_tile(tile_atlas_coords: String):
 	# 1. Get the mouse position relative to the TileMap node
 	var local_mouse_pos = get_local_mouse_position()
 
@@ -76,10 +77,20 @@ func place_tile(tile_atlas_coords: Vector2i):
 	var clicked_coords: Vector2i = local_to_map(local_mouse_pos)
 	
 	# place the given tile where the mouse is
-	set_cell(clicked_coords, 0, tile_atlas_coords)
+	set_cell(clicked_coords, 0, str_to_var('Vector2i' + tile_atlas_coords))
+	
+	# remove the tile from player's inventory
+	main_game_node.get_node('entities/player').subtract_block(tile_atlas_coords)
 	get_node('poppedtile').play()
 	
 func _process(_delta: float):
+	
+	# change markers color depending on if player is in place mode or not
+	if main_game_node.get_node('entities/player').in_place_mode:
+		highlighted_marker.modulate = Color(0.0, 1.0, 0.0, 1.0)
+	else:
+		highlighted_marker.modulate = Color(1.0, 1.0, 1.0, 1.0)	
+	
 	# 1. Get the mouse position in the viewport
 	var mouse_pos_global = get_global_mouse_position()
 	
@@ -96,11 +107,42 @@ func _process(_delta: float):
 	# The TileMap's `get_cell_tile_data` function can be used to check
 	var tile_data = get_cell_tile_data(cell_pos)
 
-	if tile_data:
-		var atlas_coords = get_cell_atlas_coords(cell_pos)
-		if str(atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
-			if GlobalVars.BLOCK_DEFINITIONS[str(atlas_coords)].poppable:
-				# Show the marker and set its position
+	if not main_game_node.get_node('entities/player').in_place_mode:
+		if tile_data:
+			var atlas_coords = get_cell_atlas_coords(cell_pos)
+			if str(atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+				if GlobalVars.BLOCK_DEFINITIONS[str(atlas_coords)].poppable:
+					# Show the marker and set its position
+					highlighted_marker.visible = true
+					highlighted_marker.position = to_global(marker_world_pos - Vector2(7,7))
+					
+					if cell_pos != last_hovered_coords:
+						# 4. Play the sound and update the last hovered coordinates
+						#if not mouseover_sound_player.is_playing():
+						get_node('mouseover').play()
+						
+						last_hovered_coords = cell_pos
+		else:
+				highlighted_marker.visible = false
+				# reset the last_hovered_coords
+				last_hovered_coords = Vector2i(-1, -1)
+	# if you are in place mode
+	else:
+		if tile_data:
+			var atlas_coords = get_cell_atlas_coords(cell_pos)
+			if str(atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+				if GlobalVars.BLOCK_DEFINITIONS[str(atlas_coords)].replaceable:
+					# Show the marker and set its position
+					highlighted_marker.visible = true
+					highlighted_marker.position = to_global(marker_world_pos - Vector2(7,7))
+					
+					if cell_pos != last_hovered_coords:
+						# 4. Play the sound and update the last hovered coordinates
+						#if not mouseover_sound_player.is_playing():
+						get_node('mouseover').play()
+						
+						last_hovered_coords = cell_pos
+		else:
 				highlighted_marker.visible = true
 				highlighted_marker.position = to_global(marker_world_pos - Vector2(7,7))
 				
@@ -110,12 +152,8 @@ func _process(_delta: float):
 						get_node('mouseover').play()
 						
 						last_hovered_coords = cell_pos
-	else:
-		# Hide the marker if the mouse is outside the defined tiles
-		highlighted_marker.visible = false
-		# If the mouse is now over empty space, reset the last_hovered_coords
-		last_hovered_coords = Vector2i(-1, -1)
-
+		
+		
 func get_texture_from_atlas_coords(atlas_coords: Vector2i) -> Texture2D:
 	# 1. Get the TileSetSource object
 	var source: TileSetSource = tile_set_resource.get_source(TARGET_SOURCE_ID)
