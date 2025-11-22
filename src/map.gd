@@ -58,6 +58,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			main_game_node.get_node('entities/player').move_to(get_global_mouse_position())
 			
 func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_block_definition: Dictionary):
+	
+	
 	var popped_block = load('res://scenes/block.tscn').instantiate()
 	# eventually look up names of blocks based on tile atlas coordinates, for now just
 	# use the coordinates as the name
@@ -65,6 +67,17 @@ func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_bloc
 						get_texture_from_atlas_coords(tile_atlas_coords) if given_block_definition.poppable is bool else get_texture_from_atlas_coords(str_to_var('Vector2i' + given_block_definition.poppable)))
 	popped_block.position = local_mouse_pos
 	main_game_node.add_child(popped_block)
+
+func place_tile(tile_atlas_coords: Vector2i):
+	# 1. Get the mouse position relative to the TileMap node
+	var local_mouse_pos = get_local_mouse_position()
+
+	# 2. Convert the local position to tile coordinates (cell)
+	var clicked_coords: Vector2i = local_to_map(local_mouse_pos)
+	
+	# place the given tile where the mouse is
+	set_cell(clicked_coords, 0, tile_atlas_coords)
+	get_node('poppedtile').play()
 	
 func _process(_delta: float):
 	# 1. Get the mouse position in the viewport

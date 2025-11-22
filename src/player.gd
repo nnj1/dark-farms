@@ -80,3 +80,15 @@ func add_block(block_atlas_coords:String, block_texture: Texture2D):
 	main_game_node.gprint('Picked up ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 	get_node('pickup').play()
 	main_game_node.update_inventory_ui(self.inventory)
+
+func place_block(block_atlas_coords:String, tilemap_coords: Vector2i, block_texture: Texture2D):
+	if block_atlas_coords in inventory:
+		if inventory[block_atlas_coords]['count'] == 1:
+			main_game_node.gprint('Placed down ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
+			inventory.erase(block_atlas_coords)
+		else:
+			main_game_node.gprint('Placed down ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
+			inventory[block_atlas_coords]['count'] -= 1
+		
+		get_node('pickup').play()
+		main_game_node.update_inventory_ui(self.inventory)

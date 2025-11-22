@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://f2ux0v8vwihh"]
+[gd_scene load_steps=8 format=4 uid="uid://f2ux0v8vwihh"]
 
 [ext_resource type="TileSet" uid="uid://cgnnxg4k3hwiu" path="res://assets/tileset.tres" id="1_0cso3"]
 [ext_resource type="Script" uid="uid://ykuy534w5m51" path="res://src/map.gd" id="2_2klcf"]
 [ext_resource type="AudioStream" uid="uid://boop83xkf60lw" path="res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Retro1.mp3" id="3_2lpho"]
 [ext_resource type="AudioStream" uid="uid://cvbxg4kq4mc4r" path="res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Wood Block1.mp3" id="4_nakos"]
+[ext_resource type="AudioStream" uid="uid://4akemfuyishk" path="res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Wood Block2.mp3" id="5_2klcf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eb6dy"]
 
@@ -36,3 +37,6 @@ bus = &"Sounds"
 [node name="poppedtile" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_nakos")
 bus = &"Sounds"
+
+[node name="placedtile" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2klcf")
