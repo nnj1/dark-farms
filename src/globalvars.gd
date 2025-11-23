@@ -24,6 +24,15 @@ var BLOCK_DEFINITIONS = {
 		},
 		'ingredients3': {
 			'(12, 9)': 1
+		},
+		'ingredients4': {
+			'(0, 7)': 1
+		},
+		'ingredients5': {
+			'(1, 7)': 1
+		},
+		'ingredients6': {
+			'(2, 7)': 1
 		}
 	},
 	'(3, 9)': {

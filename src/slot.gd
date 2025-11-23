@@ -65,7 +65,7 @@ func set_up_crafting_panel():
 		var block_definition = GlobalVars.BLOCK_DEFINITIONS[key]
 		# TODO: set up this so that infinite multiple recipes are possible, currently supporting 4 different 
 		# 		ways to create the same item
-		for ingredients_num in ['ingredients', 'ingredients1', 'ingredients2', 'ingredients3']:
+		for ingredients_num in ['ingredients', 'ingredients1', 'ingredients2', 'ingredients3', 'ingredients4', 'ingredients5', 'ingredients6']:
 			if ingredients_num in block_definition:
 				# see if this current item is one of the ingredients
 				if atlas_coords_string in block_definition[ingredients_num].keys():

@@ -68,6 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		place_tile(main_game_node.get_node('entities/player').current_placeable_tile_coords)
 
 func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_block_definition: Dictionary):
+	
 	var popped_block = load('res://scenes/block.tscn').instantiate()
 	# eventually look up names of blocks based on tile atlas coordinates, for now just
 	# use the coordinates as the name
@@ -75,6 +76,12 @@ func pop_tile(local_mouse_pos: Vector2i, tile_atlas_coords: Vector2i, given_bloc
 						get_texture_from_atlas_coords(tile_atlas_coords) if given_block_definition.poppable is bool else get_texture_from_atlas_coords(str_to_var('Vector2i' + given_block_definition.poppable)))
 	popped_block.position = local_mouse_pos
 	main_game_node.add_child(popped_block)
+	
+	# if the popped tile is dynamic, update all dynamic tiles
+	if str(tile_atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+		if 'dynamic' in GlobalVars.BLOCK_DEFINITIONS[str(tile_atlas_coords)]:
+			if GlobalVars.BLOCK_DEFINITIONS[str(tile_atlas_coords)].dynamic:
+				update_all_dynamic_tiles()
 
 func place_tile(tile_atlas_coords: String):
 	# 1. Get the mouse position relative to the TileMap node
@@ -92,8 +99,9 @@ func place_tile(tile_atlas_coords: String):
 		
 		# if the placed tile is dynamic, update all dynamic tiles
 		if tile_atlas_coords in GlobalVars.BLOCK_DEFINITIONS:
-			if GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords].dynamic:
-				update_all_dynamic_tiles()
+			if 'dynamic' in GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords]:
+				if GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords].dynamic:
+					update_all_dynamic_tiles()
 				
 	# if a tile does exist, check to see if the tile is replaceable
 	else:	
@@ -112,8 +120,9 @@ func place_tile(tile_atlas_coords: String):
 				
 				# if the placed tile is dynamic, update all dynamic tiles
 				if tile_atlas_coords in GlobalVars.BLOCK_DEFINITIONS:
-					if GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords].dynamic:
-						update_all_dynamic_tiles()
+					if 'dynamic' in GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords]:
+						if GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords].dynamic:
+							update_all_dynamic_tiles()
 				
 func _process(_delta: float):
 	if not GlobalVars.in_game:
