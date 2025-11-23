@@ -19,6 +19,36 @@ func _ready() -> void:
 	get_node('count').text = str(self.quantity)
 	$Panel.visible = false
 	
+func _process(_delta: float) -> void:
+	pass
+
+func _on_mouse_entered() -> void:
+	if not get_node('border').visible:
+		get_node('border').visible = true
+		UIPlayer.play_button_hover()
+
+func _on_mouse_exited() -> void:
+	if get_node('border').visible:
+		get_node('border').visible = false
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
+		if GlobalVars.BLOCK_DEFINITIONS[self.atlas_coords_string].placeable:	
+			@warning_ignore("standalone_ternary")
+			deactivate() if active else activate()
+	
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed == false:
+		# close the panels of all the other siblings
+		for sibling in get_siblings(self):
+			sibling.get_node('Panel').visible = false 
+			
+		# Set up the crafting panel!
+		set_up_crafting_panel()
+		
+		$Panel.visible = !$Panel.visible
+
+func set_up_crafting_panel():
+	
 	# get the crafting panel working based on what the player has in inventory
 	
 	# First the title and icon
@@ -57,32 +87,7 @@ func _ready() -> void:
 				
 				# add the button
 				get_node('Panel/VBoxContainer/GridContainer').add_child(recipe_button)
-	
-func _process(_delta: float) -> void:
-	pass
 
-func _on_mouse_entered() -> void:
-	if not get_node('border').visible:
-		get_node('border').visible = true
-		UIPlayer.play_button_hover()
-
-func _on_mouse_exited() -> void:
-	if get_node('border').visible:
-		get_node('border').visible = false
-
-func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
-		if GlobalVars.BLOCK_DEFINITIONS[self.atlas_coords_string].placeable:	
-			@warning_ignore("standalone_ternary")
-			deactivate() if active else activate()
-	
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed == false:
-		# close the panels of all the other siblings
-		for sibling in get_siblings(self):
-			sibling.get_node('Panel').visible = false 
-		$Panel.visible = !$Panel.visible
-
-	
 func activate():
 	for sibling in get_siblings(self):
 		sibling.deactivate()

@@ -193,6 +193,51 @@ var BLOCK_DEFINITIONS = {
 		'ingredients': {
 			'(0, 23)': 2
 		}
+	},
+	'(0, 2)': {
+		'name': 'cracked_stone_floor_1',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(79, 20)': 1
+		}
+	},
+	'(1, 2)': {
+		'name': 'cracked_stone_floor_2',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(79, 20)': 1
+		}
+	},
+	'(5, 2)': {
+		'name': 'stone_floor_1',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(79, 20)': 3
+		}
+	},
+	'(6, 2)': {
+		'name': 'stone_floor_2',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(79, 20)': 2
+		}
+	},
+	'(7, 2)': {
+		'name': 'stone_floor_3',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(79, 20)': 2
+		}
 	}
 }
 
