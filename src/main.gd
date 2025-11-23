@@ -1,7 +1,5 @@
 extends Node2D
 
-
-	
 func _ready() -> void:
 	GlobalVars.change_cursor()
 	
@@ -31,7 +29,7 @@ func _process(_delta: float) -> void:
 
 	# Example: DD-MM-YYYY HH:MM:SS format
 	var custom_datetime_string = "%02d-%02d-%04d %02d:%02d:%02d" % [day, month, year, hour, minute, second]
-	get_node('UI/datetime').text = custom_datetime_string
+	get_node('UI/datetime').text = custom_datetime_string + "| FPS: " + str(Engine.get_frames_per_second())
 
 # The function that will intercept all print calls
 func gprint(message: String) -> void:
@@ -55,3 +53,11 @@ func _on_button_pressed() -> void:
 
 func _on_button_2_pressed() -> void:
 	get_node('world/GaeaGenerator').generate()
+
+func _on_h_slider_value_changed(value: float) -> void:
+	var sfx_index= AudioServer.get_bus_index("Music")
+	AudioServer.set_bus_volume_db(sfx_index, value)
+
+func _on_h_slider2_value_changed(value: float) -> void:
+	var sfx_index= AudioServer.get_bus_index("Sounds")
+	AudioServer.set_bus_volume_db(sfx_index, value)

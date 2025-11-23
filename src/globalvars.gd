@@ -8,6 +8,48 @@ var lore_data
 const TILESET_PATH = "res://assets/tileset.tres"
 
 var BLOCK_DEFINITIONS = {
+	'(11, 34)': {
+		'name': 'soil', # name of the block
+		'poppable': true, # if it can popped out in pop mode
+		'placeable': true, # if it can be placed in place mode
+		'replaceable': true, # if it can be replaced in place mode
+		'ingredients': {
+			'(3, 9)': 1
+		},
+		'ingredients1': {
+			'(4, 9)': 1
+		},
+		'ingredients2': {
+			'(11, 9)': 1
+		},
+		'ingredients3': {
+			'(12, 9)': 1
+		}
+	},
+	'(3, 9)': {
+		'name': 'grass1', # name of the block
+		'poppable': true, # if it can popped out in pop mode
+		'placeable': true, # if it can be placed in place mode
+		'replaceable': false # if it can be replaced in place mode
+	},
+	'(4, 9)': {
+		'name': 'grass2', # name of the block
+		'poppable': true, # if it can popped out in pop mode
+		'placeable': true, # if it can be placed in place mode
+		'replaceable': false # if it can be replaced in place mode
+	},
+	'(11, 9)': {
+		'name': 'grass3', # name of the block
+		'poppable': true, # if it can popped out in pop mode
+		'placeable': true, # if it can be placed in place mode
+		'replaceable': false # if it can be replaced in place mode
+	},
+	'(12, 9)': {
+		'name': 'grass4', # name of the block
+		'poppable': true, # if it can popped out in pop mode
+		'placeable': true, # if it can be placed in place mode
+		'replaceable': false # if it can be replaced in place mode
+	},
 	'(0, 7)': {
 		'name': 'dirt1', # name of the block
 		'poppable': false, # if it can popped out in pop mode
@@ -387,13 +429,24 @@ var SCALE_FACTOR: float
 # For an arrow cursor, (0, 0) is usually best.
 var CURSOR_HOTSPOT: Vector2
 
+# preload a set of common cursors to prevent having to deal with this at runtime
+var PRESET_CURSORS = {
+	'res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png': preload('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png'),
+	'res://assets/kenney_cursor-pixel-pack/Tiles/tile_0050.png': preload('res://assets/kenney_cursor-pixel-pack/Tiles/tile_0050.png'),
+	'res://assets/kenney_cursor-pixel-pack/Tiles/tile_0110.png': preload('res://assets/kenney_cursor-pixel-pack/Tiles/tile_0110.png')
+}
+
 func change_cursor(texture_path:String = "res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png",
 					hotspot: Vector2 = Vector2(0, 0), scale_factor: float = 1.5):
 	CURSOR_TEXTURE_PATH = texture_path
 	SCALE_FACTOR = scale_factor
 	CURSOR_HOTSPOT = hotspot
 	
-	var original_texture = load(CURSOR_TEXTURE_PATH)
+	var original_texture
+	if CURSOR_TEXTURE_PATH in PRESET_CURSORS.keys():
+		original_texture = PRESET_CURSORS[CURSOR_TEXTURE_PATH]
+	else:
+		original_texture = load(CURSOR_TEXTURE_PATH)
 
 	if original_texture and original_texture is Texture2D:
 		var original_image: Image = original_texture.get_image()
@@ -406,6 +459,8 @@ func change_cursor(texture_path:String = "res://assets/Megabyte Games Mouse Curs
 		
 		# 1. Create a deep copy of the original image
 		var scaled_image: Image = original_image.duplicate()
+		
+		#TODO: optimize this resizing bullshit
 		
 		# 2. Use Image.resize() for high-quality scaling
 		# The default Image.INTERPOLATE_LINEAR ensures smooth scaling.

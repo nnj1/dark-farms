@@ -12,6 +12,9 @@ var last_hovered_coords: Vector2i = Vector2i(-1, -1)
 # Adjust this to the source ID where your atlas image is located
 const TARGET_SOURCE_ID: int = 0
 
+# indexed by atlas_coords
+var already_fetched_textures = {}
+
 func _ready() -> void:
 	if not GlobalVars.in_game:
 		return
@@ -79,14 +82,28 @@ func place_tile(tile_atlas_coords: String):
 
 	# 2. Convert the local position to tile coordinates (cell)
 	var clicked_coords: Vector2i = local_to_map(local_mouse_pos)
+	var dest_tile_data = get_cell_tile_data(clicked_coords)
+	# if no existing tile is present in the dest location, place the tile
+	if not dest_tile_data:
+		set_cell(clicked_coords, 0, str_to_var('Vector2i' + tile_atlas_coords))
+		# remove the tile from player's inventory
+		main_game_node.get_node('entities/player').subtract_block(tile_atlas_coords)
+		get_node('poppedtile').play()
+	# if a tile does exist, check to see if the tile is replaceable
+	else:	
+		var dest_atlas_coords = get_cell_atlas_coords(clicked_coords)
+		if str(dest_atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+			if GlobalVars.BLOCK_DEFINITIONS[str(dest_atlas_coords)].replaceable:
+				# place the given tile where the mouse is if the cell is replaceable
+				set_cell(clicked_coords, 0, str_to_var('Vector2i' + tile_atlas_coords))
 	
-	# place the given tile where the mouse is
-	set_cell(clicked_coords, 0, str_to_var('Vector2i' + tile_atlas_coords))
-	
-	# remove the tile from player's inventory
-	main_game_node.get_node('entities/player').subtract_block(tile_atlas_coords)
-	get_node('poppedtile').play()
-	
+				# remove the tile from player's inventory
+				main_game_node.get_node('entities/player').subtract_block(tile_atlas_coords)
+				get_node('poppedtile').play()
+				
+				# if the tile is replaceable and poppable, pop out a block of it
+				pop_tile(local_mouse_pos, dest_atlas_coords, GlobalVars.BLOCK_DEFINITIONS[str(dest_atlas_coords)])
+				
 func _process(_delta: float):
 	if not GlobalVars.in_game:
 		return
@@ -161,6 +178,12 @@ func _process(_delta: float):
 		
 		
 func get_texture_from_atlas_coords(atlas_coords: Vector2i) -> Texture2D:
+	
+	# Return already fetched textures, that we we don't have to do image resizing all the time
+	# (less demand on hardware)
+	if str(atlas_coords) in already_fetched_textures:
+		return already_fetched_textures[str(atlas_coords)]
+		
 	# 1. Get the TileSetSource object
 	var source: TileSetSource = tile_set_resource.get_source(TARGET_SOURCE_ID)
 	
@@ -187,5 +210,9 @@ func get_texture_from_atlas_coords(atlas_coords: Vector2i) -> Texture2D:
 	
 	# 5. Create a new ImageTexture from the extracted image slice
 	var tile_texture = ImageTexture.create_from_image(tile_image)
+	
+	# also add it to already fetched textures, so we don't need to do all this 
+	# resizing shit when it's requested again
+	already_fetched_textures[str(atlas_coords)] = tile_texture
 	
 	return tile_texture

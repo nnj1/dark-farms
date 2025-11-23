@@ -55,38 +55,46 @@ func set_up_crafting_panel():
 	get_node('Panel/VBoxContainer/HBoxContainer/Label').text = self.block_name
 	get_node('Panel/VBoxContainer/HBoxContainer/icon').texture = get_node('icon').texture 
 	
+	
+	# first clear existing shit in the crafting panel
+	for child in get_node('Panel/VBoxContainer/GridContainer').get_children():
+		child.queue_free()
+	
 	# Now populate the recipes that rely on such an item
 	for key in GlobalVars.BLOCK_DEFINITIONS:
 		var block_definition = GlobalVars.BLOCK_DEFINITIONS[key]
-		if 'ingredients' in block_definition:
-			# see if this current item is one of the ingredients
-			if atlas_coords_string in block_definition.ingredients.keys():
-				# add the item to the grid of possible recepies
-				var recipe_button = Button.new() 
-				#recipe_button.text = block_definition.name
-				recipe_button.icon = main_game_node.get_node('world/map').get_texture_from_atlas_coords(str_to_var('Vector2i' + key))
-				recipe_button.custom_minimum_size = Vector2(40, 40)
-				recipe_button.expand_icon = true
-				
-				recipe_button.tooltip_text = str(block_definition.ingredients)
-				# disable the button of the player has doesn't have all the ingredients
-				for ingredient in block_definition.ingredients:
-					if ingredient in main_game_node.get_node('entities/player').inventory:
-						if main_game_node.get_node('entities/player').inventory[ingredient].count < block_definition.ingredients[ingredient]:
-							recipe_button.disabled = true
-				
-				# set up on click for the button
-				var on_craft_pressed = func():
-					# add the crafted block to the inventory
-					main_game_node.get_node('entities/player').add_block(key, recipe_button.icon)
-					# delete the ingredients
-					for ingredient in block_definition.ingredients:
-						main_game_node.get_node('entities/player').delete_block_from_inventory(ingredient, block_definition.ingredients[ingredient])
+		# TODO: set up this so that infinite multiple recipes are possible, currently supporting 4 different 
+		# 		ways to create the same item
+		for ingredients_num in ['ingredients', 'ingredients1', 'ingredients2', 'ingredients3']:
+			if ingredients_num in block_definition:
+				# see if this current item is one of the ingredients
+				if atlas_coords_string in block_definition[ingredients_num].keys():
+					# add the item to the grid of possible recepies
+					var recipe_button = Button.new() 
+					#recipe_button.text = block_definition.name
+					recipe_button.icon = main_game_node.get_node('world/map').get_texture_from_atlas_coords(str_to_var('Vector2i' + key))
+					recipe_button.custom_minimum_size = Vector2(40, 40)
+					recipe_button.expand_icon = true
 					
-				recipe_button.pressed.connect(on_craft_pressed)
-				
-				# add the button
-				get_node('Panel/VBoxContainer/GridContainer').add_child(recipe_button)
+					recipe_button.tooltip_text = str(block_definition[ingredients_num])
+					# disable the button of the player has doesn't have all the ingredients
+					for ingredient in block_definition[ingredients_num]:
+						if ingredient in main_game_node.get_node('entities/player').inventory:
+							if main_game_node.get_node('entities/player').inventory[ingredient].count < block_definition[ingredients_num][ingredient]:
+								recipe_button.disabled = true
+					
+					# set up on click for the button
+					var on_craft_pressed = func():
+						# add the crafted block to the inventory
+						main_game_node.get_node('entities/player').add_block(key, recipe_button.icon)
+						# delete the ingredients
+						for ingredient in block_definition[ingredients_num]:
+							main_game_node.get_node('entities/player').delete_block_from_inventory(ingredient, block_definition[ingredients_num][ingredient])
+						
+					recipe_button.pressed.connect(on_craft_pressed)
+					
+					# add the button
+					get_node('Panel/VBoxContainer/GridContainer').add_child(recipe_button)
 
 func activate():
 	for sibling in get_siblings(self):
@@ -95,7 +103,8 @@ func activate():
 	$AnimationPlayer.play('bounce')
 	UIPlayer.play_button_click()
 	active = true
-	main_game_node.get_node('entities/player').in_place_mode = true
+	main_game_node.get_node('entities/player').set_place_mode(true)
+	GlobalVars.change_cursor('res://assets/kenney_cursor-pixel-pack/Tiles/tile_0110.png')
 	main_game_node.get_node('entities/player').current_placeable_tile_coords = self.atlas_coords_string
 	
 func deactivate():
@@ -103,7 +112,7 @@ func deactivate():
 	$AnimationPlayer.stop()
 	UIPlayer.play_button_click()
 	active = false
-	main_game_node.get_node('entities/player').in_place_mode = false
+	main_game_node.get_node('entities/player').set_place_mode(false)
 	main_game_node.get_node('entities/player').current_placeable_tile_coords = null
 	
 func get_siblings(node):

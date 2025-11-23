@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvi1ilpwuasyd"]
+[gd_scene load_steps=12 format=3 uid="uid://bvi1ilpwuasyd"]
 
 [ext_resource type="Script" uid="uid://cgclnyaddq7d5" path="res://src/main.gd" id="1_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://ylgluvg6dpeb" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://dc3mdoithg4jt" path="res://assets/atlastexture.tres" id="2_jkv2x"]
 [ext_resource type="Shader" uid="uid://c01l0fm45f4st" path="res://shaders/blacktotransparent.gdshader" id="2_tefeu"]
 [ext_resource type="Shader" uid="uid://cbkmclkkuxdic" path="res://shaders/crt.gdshader" id="2_trceg"]
+[ext_resource type="Script" uid="uid://dkf1wgitqul3x" path="res://src/tab_container.gd" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://dotn1cw7jasj3" path="res://scenes/world.tscn" id="5_tbgi4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
@@ -16,6 +17,9 @@ shader_parameter/alpha_threshold = 0.5
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbj1t"]
 atlas = ExtResource("2_jkv2x")
 region = Rect2(1015, 482, 12, 12)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tefeu"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8y0u"]
 shader = ExtResource("2_trceg")
@@ -89,7 +93,7 @@ z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -608.0
+offset_bottom = -618.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
@@ -98,18 +102,21 @@ color = Color(0, 0, 0, 1)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -144.0
-offset_right = 310.0
+offset_top = -149.0
+offset_right = 350.0
 grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 0
 current_tab = 0
 tabs_position = 1
 drag_to_rearrange_enabled = true
 tab_focus_mode = 0
+script = ExtResource("4_tipki")
 
-[node name="Inventory" type="ScrollContainer" parent="UI/TabContainer"]
+[node name="Inventory" type="PanelContainer" parent="UI/TabContainer"]
 layout_mode = 2
-horizontal_scroll_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tefeu")
 metadata/_tab_index = 0
 
 [node name="Grid" type="GridContainer" parent="UI/TabContainer/Inventory"]
@@ -136,20 +143,53 @@ offset_bottom = 110.0
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
 
-[node name="Grid" type="GridContainer" parent="UI/TabContainer/Options/Scroll"]
-z_index = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TabContainer/Options/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 7
 
-[node name="Button" type="Button" parent="UI/TabContainer/Options/Scroll/Grid"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/TabContainer/Options/Scroll/VBoxContainer"]
 layout_mode = 2
-text = "Exit"
+size_flags_vertical = 6
 
-[node name="Button2" type="Button" parent="UI/TabContainer/Options/Scroll/Grid"]
+[node name="Label" type="Label" parent="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -6.0
+max_value = 6.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/TabContainer/Options/Scroll/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sound"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -6.0
+max_value = 6.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TabContainer/Options/Scroll/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Regen World"
+
+[node name="Button" type="Button" parent="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Exit"
 
 [node name="PanelContainer" type="Panel" parent="UI"]
 anchors_preset = 3
@@ -198,5 +238,7 @@ z_index = 1
 
 [node name="world" parent="." instance=ExtResource("5_tbgi4")]
 
-[connection signal="pressed" from="UI/TabContainer/Options/Scroll/Grid/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="UI/TabContainer/Options/Scroll/Grid/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="value_changed" from="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer2/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer3/HSlider" to="." method="_on_h_slider2_value_changed"]
+[connection signal="pressed" from="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/TabContainer/Options/Scroll/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]

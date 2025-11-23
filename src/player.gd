@@ -85,6 +85,19 @@ func add_block(block_atlas_coords:String, block_texture: Texture2D):
 	get_node('pickup').play()
 	main_game_node.update_inventory_ui(self.inventory)
 
+# function for setting the place mode
+func set_place_mode(status:bool):
+	# if no change
+	if in_place_mode == status:
+		return
+	# if true
+	if status:
+		in_place_mode = status
+		GlobalVars.change_cursor('res://assets/kenney_cursor-pixel-pack/Tiles/tile_0110.png')
+	else:
+		in_place_mode = false
+		GlobalVars.change_cursor()
+		
 # used for placing blocks
 func subtract_block(block_atlas_coords:String):
 	if block_atlas_coords in inventory:
@@ -92,7 +105,7 @@ func subtract_block(block_atlas_coords:String):
 			main_game_node.gprint('Placed down ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 			inventory.erase(block_atlas_coords)
 			# exit place mode, since we ran out of this block
-			self.in_place_mode = false
+			set_place_mode(false)
 			self.current_placeable_tile_coords = null
 		else:
 			main_game_node.gprint('Placed down ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])

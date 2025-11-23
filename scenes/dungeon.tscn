@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://bub634t8ds2xy"]
 
-[ext_resource type="Script" uid="uid://d01qsu3c648m5" path="res://scenes/dungeon.gd" id="1_ubp1v"]
+[ext_resource type="Script" uid="uid://d01qsu3c648m5" path="res://src/dungeon.gd" id="1_ubp1v"]
 [ext_resource type="AudioStream" uid="uid://boop83xkf60lw" path="res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Retro1.mp3" id="2_fpimf"]
 [ext_resource type="TileSet" uid="uid://cgnnxg4k3hwiu" path="res://assets/tileset.tres" id="2_tkjml"]
 [ext_resource type="AudioStream" uid="uid://cvbxg4kq4mc4r" path="res://assets/sounds/UI Soundpack/UI Soundpack/MP3/Wood Block1.mp3" id="3_0wj4k"]

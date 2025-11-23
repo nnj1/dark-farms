@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=4 uid="uid://oje20wkiaj6m"]
 
-[ext_resource type="Script" uid="uid://cu3cprbuwu3jy" path="res://scenes/menu.gd" id="1_yqeox"]
+[ext_resource type="Script" uid="uid://cu3cprbuwu3jy" path="res://src/menu.gd" id="1_yqeox"]
 [ext_resource type="Shader" uid="uid://cbkmclkkuxdic" path="res://shaders/crt.gdshader" id="2_vjb58"]
 [ext_resource type="TileSet" uid="uid://cgnnxg4k3hwiu" path="res://assets/tileset.tres" id="3_v86rl"]
 [ext_resource type="Script" uid="uid://ykuy534w5m51" path="res://src/map.gd" id="4_13sgg"]
@@ -221,7 +221,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_mhnvy")
 }
 autoplay = "background_move"
-speed_scale = 0.5
+speed_scale = 0.75
 
 [connection signal="pressed" from="ui/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ui/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
