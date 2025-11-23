@@ -88,7 +88,13 @@ func place_tile(tile_atlas_coords: String):
 		set_cell(clicked_coords, 0, str_to_var('Vector2i' + tile_atlas_coords))
 		# remove the tile from player's inventory
 		main_game_node.get_node('entities/player').subtract_block(tile_atlas_coords)
-		get_node('poppedtile').play()
+		get_node('placedtile').play()
+		
+		# if the placed tile is dynamic, update all dynamic tiles
+		if tile_atlas_coords in GlobalVars.BLOCK_DEFINITIONS:
+			if GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords].dynamic:
+				update_all_dynamic_tiles()
+				
 	# if a tile does exist, check to see if the tile is replaceable
 	else:	
 		var dest_atlas_coords = get_cell_atlas_coords(clicked_coords)
@@ -99,10 +105,15 @@ func place_tile(tile_atlas_coords: String):
 	
 				# remove the tile from player's inventory
 				main_game_node.get_node('entities/player').subtract_block(tile_atlas_coords)
-				get_node('poppedtile').play()
+				get_node('placedtile').play()
 				
 				# if the tile is replaceable and poppable, pop out a block of it
 				pop_tile(local_mouse_pos, dest_atlas_coords, GlobalVars.BLOCK_DEFINITIONS[str(dest_atlas_coords)])
+				
+				# if the placed tile is dynamic, update all dynamic tiles
+				if tile_atlas_coords in GlobalVars.BLOCK_DEFINITIONS:
+					if GlobalVars.BLOCK_DEFINITIONS[tile_atlas_coords].dynamic:
+						update_all_dynamic_tiles()
 				
 func _process(_delta: float):
 	if not GlobalVars.in_game:
@@ -216,3 +227,45 @@ func get_texture_from_atlas_coords(atlas_coords: Vector2i) -> Texture2D:
 	already_fetched_textures[str(atlas_coords)] = tile_texture
 	
 	return tile_texture
+
+# function to update dynamic blocks, for blocks like fire and interactable ones
+func update_all_dynamic_tiles():
+	
+	# delete all lights
+	for child in get_node('lights').get_children():
+		child.queue_free()
+	
+	# 1. Get the list of all tile coordinates (positions) that exist on this layer.
+	#    TileMapLayer.get_used_cells() returns an Array[Vector2i].
+	var used_cells: Array[Vector2i] = get_used_cells()
+	
+	# 2. Loop through each cell position
+	for cell_coords in used_cells:
+		# cell_coords is a Vector2i (e.g., (3, 5))
+		
+		# 3. Get the source ID, linking the tile to a specific TileSetSource.
+		#    Note: The layer argument is omitted as the TileMapLayer inherently represents "one layer."
+		var _source_id: int = get_cell_source_id(cell_coords)
+		
+		# 4. Get the atlas coordinates, which locate the tile within the source texture.
+		#    This is a Vector2i (e.g., (1, 2)).
+		var atlas_coords: Vector2i = get_cell_atlas_coords(cell_coords)
+		
+		# 5. Get the alternative tile ID (if any). Often 0 for the base tile.
+		var _alternative_tile: int = get_cell_alternative_tile(cell_coords)
+		
+		if str(atlas_coords) in GlobalVars.BLOCK_DEFINITIONS:
+			# CODE FOR MAKING FIRE ACTUALLY LIGHT UP
+			if GlobalVars.BLOCK_DEFINITIONS[str(atlas_coords)].name == 'fire':
+				var new_light = PointLight2D.new()
+				# Option 1: Load an existing texture
+				var light_texture = preload('res://assets/light textures/2d_lights_and_shadows_neutral_point_light.webp')
+				new_light.texture = light_texture
+				# Set other properties
+				new_light.position = to_global(map_to_local(cell_coords)) 
+				#new_light.energy = 2.0
+				new_light.texture_scale = 0.5
+				#new_light.blend_mode = PointLight2D.BLEND_MODE_MIX
+				#new_light.shadow_enabled = true
+				#new_light.shadow_color = Color(0, 0, 0, 0.7)
+				get_node('lights').add_child(new_light)

@@ -280,6 +280,17 @@ var BLOCK_DEFINITIONS = {
 		'ingredients': {
 			'(79, 20)': 2
 		}
+	},
+	'(0, 42)': {
+		'name': 'fire',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1,
+			'(79, 20)': 1
+		},
+		'dynamic': true
 	}
 }
 

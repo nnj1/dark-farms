@@ -39,3 +39,5 @@ bus = &"Sounds"
 
 [node name="placedtile" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_2klcf")
+
+[node name="lights" type="Node2D" parent="."]

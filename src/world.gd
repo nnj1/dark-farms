@@ -33,6 +33,29 @@ var color_keyframes: Dictionary = {
 var time_of_day: float = 6.0 # Start the day at 6:00 AM
 var speed_multiplier: float = 1.0 / real_seconds_per_game_hour
 
+func float_to_hh_mm(hour_float: float) -> String:
+	# 1. Ensure the float is within a 24-hour cycle (0.0 to < 24.0)
+	var normalized_hour: float = fmod(hour_float, 24.0)
+	
+	# 2. Extract the integer part as the hour (H)
+	var hour: int = int(floor(normalized_hour))
+	
+	# 3. Extract the fractional part and convert to minutes (M)
+	var minutes_float: float = normalized_hour - hour
+	var minute: int = int(round(minutes_float * 60.0))
+	
+	# Handle potential rounding overflow (e.g., 59.99 minutes rounding to 60)
+	if minute >= 60:
+		minute -= 60
+		hour += 1
+		# Re-normalize hour if it crossed 24 due to minute overflow
+		hour = int(fmod(float(hour), 24.0)) 
+	
+	# 4. Format the output string as HH:MM with leading zeros
+	var result: String = "%02d:%02d" % [hour, minute]
+	
+	return result
+
 func _init() -> void:
 	pass
 

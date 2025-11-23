@@ -82,6 +82,10 @@ func set_up_crafting_panel():
 						if ingredient in main_game_node.get_node('entities/player').inventory:
 							if main_game_node.get_node('entities/player').inventory[ingredient].count < block_definition[ingredients_num][ingredient]:
 								recipe_button.disabled = true
+								break
+						else:
+							recipe_button.disabled = true
+							break
 					
 					# set up on click for the button
 					var on_craft_pressed = func():

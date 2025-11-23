@@ -29,7 +29,9 @@ func _process(_delta: float) -> void:
 
 	# Example: DD-MM-YYYY HH:MM:SS format
 	var custom_datetime_string = "%02d-%02d-%04d %02d:%02d:%02d" % [day, month, year, hour, minute, second]
-	get_node('UI/datetime').text = custom_datetime_string + "| FPS: " + str(Engine.get_frames_per_second())
+	
+	# throw on FPS and other shit
+	get_node('UI/datetime').text = custom_datetime_string + " | FPS: " + str(Engine.get_frames_per_second()) + ' | In-game Time: ' + str(get_node('world').float_to_hh_mm(get_node('world').time_of_day))
 
 # The function that will intercept all print calls
 func gprint(message: String) -> void:
@@ -61,3 +63,6 @@ func _on_h_slider_value_changed(value: float) -> void:
 func _on_h_slider2_value_changed(value: float) -> void:
 	var sfx_index= AudioServer.get_bus_index("Sounds")
 	AudioServer.set_bus_volume_db(sfx_index, value)
+
+func _on_button_3_pressed() -> void:
+	get_node('world').time_of_day += 1
