@@ -67,7 +67,7 @@ func _on_button_pressed() -> void:
 	Dialogic.start("animal")
 
 func _on_button_mouse_entered() -> void:
-	main_game_node.change_cursor('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-25.png')
+	GlobalVars.change_cursor('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-25.png')
 
 func _on_button_mouse_exited() -> void:
-	main_game_node.change_cursor('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png') # Replace with function body.
+	GlobalVars.change_cursor('res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png') # Replace with function body.

@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-@onready var main_game_node = get_tree().get_root().get_node('Main')
+@onready var main_game_node = Node2D
 
 # Get the highlight marker node
 @onready var highlighted_marker: Panel = get_node("marker") 
@@ -13,9 +13,13 @@ var last_hovered_coords: Vector2i = Vector2i(-1, -1)
 const TARGET_SOURCE_ID: int = 0
 
 func _ready() -> void:
-	pass
+	if not GlobalVars.in_game:
+		return
+	main_game_node = get_tree().get_root().get_node('Main')
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if not GlobalVars.in_game:
+		return
 	# CODE FOR POPPING TILES
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed == false:
 	if event.is_action_pressed("pop") and not main_game_node.get_node('entities/player').in_place_mode:
@@ -84,7 +88,9 @@ func place_tile(tile_atlas_coords: String):
 	get_node('poppedtile').play()
 	
 func _process(_delta: float):
-	
+	if not GlobalVars.in_game:
+		return
+		
 	# change markers color depending on if player is in place mode or not
 	if main_game_node.get_node('entities/player').in_place_mode:
 		highlighted_marker.modulate = Color(0.0, 1.0, 0.0, 1.0)

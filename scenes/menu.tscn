@@ -1,0 +1,189 @@
+[gd_scene load_steps=11 format=3 uid="uid://oje20wkiaj6m"]
+
+[ext_resource type="Script" uid="uid://cu3cprbuwu3jy" path="res://scenes/menu.gd" id="1_yqeox"]
+[ext_resource type="Shader" uid="uid://cbkmclkkuxdic" path="res://shaders/crt.gdshader" id="2_vjb58"]
+[ext_resource type="PackedScene" uid="uid://f2ux0v8vwihh" path="res://scenes/map.tscn" id="3_con2f"]
+
+[sub_resource type="Animation" id="Animation_4ytvr"]
+resource_name = "title_bounce"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.02, 1.02), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g3eks"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v86rl"]
+_data = {
+&"RESET": SubResource("Animation_g3eks"),
+&"title_bounce": SubResource("Animation_4ytvr")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_con2f"]
+shader = ExtResource("2_vjb58")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(1152, 648)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 4.7499999933364734e-08
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.0050000002375
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="Animation" id="Animation_con2f"]
+resource_name = "background_move"
+length = 60.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/map:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 60),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1000, -1000)]
+}
+
+[sub_resource type="Animation" id="Animation_mhnvy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/map:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mhnvy"]
+_data = {
+&"RESET": SubResource("Animation_mhnvy"),
+&"background_move": SubResource("Animation_con2f")
+}
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_yqeox")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="ui"]
+offset_left = 342.0
+offset_top = 252.0
+offset_right = 809.0
+offset_bottom = 332.0
+pivot_offset = Vector2(233, 40)
+theme_override_font_sizes/font_size = 60
+text = "Dark Farms"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ui/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_v86rl")
+}
+autoplay = "title_bounce"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = 20.0
+offset_right = 233.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="ui/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Button2" type="Button" parent="ui/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Button3" type="Button" parent="ui/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="FileDialog" type="FileDialog" parent="ui"]
+
+[node name="shader" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="ColorRect" type="ColorRect" parent="shader"]
+material = SubResource("ShaderMaterial_con2f")
+offset_left = -124.0
+offset_top = -111.0
+offset_right = 1292.0
+offset_bottom = 771.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1500, 1500)
+size_2d_override = Vector2i(500, 500)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="map" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_con2f")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_mhnvy")
+}
+autoplay = "background_move"
+speed_scale = 0.5
+
+[connection signal="pressed" from="ui/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ui/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="ui/VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="file_selected" from="ui/FileDialog" to="." method="_on_file_dialog_file_selected"]

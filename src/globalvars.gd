@@ -375,3 +375,49 @@ func dir_contents(path):
 		#print("An error occurred when trying to access the path.")
 		pass
 	return files
+	
+var in_game = false
+
+# Load the cursor texture at the beginning
+var CURSOR_TEXTURE_PATH: String
+var SCALE_FACTOR: float 
+
+# Set the hotspot (the active click point) of the cursor.
+# If your image is 64x64, a hotspot of (32, 32) centers the click point.
+# For an arrow cursor, (0, 0) is usually best.
+var CURSOR_HOTSPOT: Vector2
+
+func change_cursor(texture_path:String = "res://assets/Megabyte Games Mouse Cursor Pack-2022-3-27/Megabyte Games Mouse Cursor Pack/16x16/png/cursor-pointer-18.png",
+					hotspot: Vector2 = Vector2(0, 0), scale_factor: float = 1.5):
+	CURSOR_TEXTURE_PATH = texture_path
+	SCALE_FACTOR = scale_factor
+	CURSOR_HOTSPOT = hotspot
+	
+	var original_texture = load(CURSOR_TEXTURE_PATH)
+
+	if original_texture and original_texture is Texture2D:
+		var original_image: Image = original_texture.get_image()
+		if original_image == null:
+			print("Error: Could not get image from texture.")
+			return
+
+		var new_width = int(original_image.get_width() * SCALE_FACTOR)
+		var new_height = int(original_image.get_height() * SCALE_FACTOR)
+		
+		# 1. Create a deep copy of the original image
+		var scaled_image: Image = original_image.duplicate()
+		
+		# 2. Use Image.resize() for high-quality scaling
+		# The default Image.INTERPOLATE_LINEAR ensures smooth scaling.
+		scaled_image.resize(new_width, new_height, Image.INTERPOLATE_NEAREST) 
+
+		# 3. Create the new texture and set the cursor
+		var scaled_texture = ImageTexture.create_from_image(scaled_image)
+
+		# Recalculate hotspot (if your original hotspot was not 0,0)
+		var new_hotspot = CURSOR_HOTSPOT * SCALE_FACTOR
+		
+		Input.set_custom_mouse_cursor(scaled_texture, Input.CURSOR_ARROW, new_hotspot)
+		print("Cursor scaled successfully using Image.resize().")
+	else:
+		print("Error: Could not load or cast the original cursor texture.")
