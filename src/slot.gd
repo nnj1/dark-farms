@@ -12,13 +12,51 @@ func prepare(given_block_name: String, given_quantity: int, given_texture: Textu
 	self.quantity = given_quantity
 	self.atlas_coords_string = given_atlas_coords_string
 	get_node('icon').texture = given_texture 
-	get_node('Panel/VBoxContainer/HBoxContainer/icon').texture = given_texture 
+	
 
 func _ready() -> void:
 	self.tooltip_text = self.block_name
-	get_node('Panel/VBoxContainer/HBoxContainer/Label').text = self.block_name
 	get_node('count').text = str(self.quantity)
 	$Panel.visible = false
+	
+	# get the crafting panel working based on what the player has in inventory
+	
+	# First the title and icon
+	get_node('Panel/VBoxContainer/HBoxContainer/Label').text = self.block_name
+	get_node('Panel/VBoxContainer/HBoxContainer/icon').texture = get_node('icon').texture 
+	
+	# Now populate the recipes that rely on such an item
+	for key in GlobalVars.BLOCK_DEFINITIONS:
+		var block_definition = GlobalVars.BLOCK_DEFINITIONS[key]
+		if 'ingredients' in block_definition:
+			# see if this current item is one of the ingredients
+			if atlas_coords_string in block_definition.ingredients.keys():
+				# add the item to the grid of possible recepies
+				var recipe_button = Button.new() 
+				#recipe_button.text = block_definition.name
+				recipe_button.icon = main_game_node.get_node('world/map').get_texture_from_atlas_coords(str_to_var('Vector2i' + key))
+				recipe_button.custom_minimum_size = Vector2(40, 40)
+				recipe_button.expand_icon = true
+				
+				recipe_button.tooltip_text = str(block_definition.ingredients)
+				# disable the button of the player has doesn't have all the ingredients
+				for ingredient in block_definition.ingredients:
+					if ingredient in main_game_node.get_node('entities/player').inventory:
+						if main_game_node.get_node('entities/player').inventory[ingredient].count < block_definition.ingredients[ingredient]:
+							recipe_button.disabled = true
+				
+				# set up on click for the button
+				var on_craft_pressed = func():
+					# add the crafted block to the inventory
+					main_game_node.get_node('entities/player').add_block(key, recipe_button.icon)
+					# delete the ingredients
+					for ingredient in block_definition.ingredients:
+						main_game_node.get_node('entities/player').delete_block_from_inventory(ingredient, block_definition.ingredients[ingredient])
+					
+				recipe_button.pressed.connect(on_craft_pressed)
+				
+				# add the button
+				get_node('Panel/VBoxContainer/GridContainer').add_child(recipe_button)
 	
 func _process(_delta: float) -> void:
 	pass
@@ -90,7 +128,7 @@ func _on_button_pressed() -> void:
 
 func _on_button_2_pressed() -> void:
 	# destory the item
-	main_game_node.get_node('entities/player').delete_block_from_inventory(self.atlas_coords_string)
+	main_game_node.get_node('entities/player').delete_block_from_inventory(self.atlas_coords_string, 999)
 	$Panel.visible = false # Replace with function body.
 
 func _on_button_3_pressed() -> void:

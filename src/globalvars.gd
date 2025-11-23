@@ -67,6 +67,132 @@ var BLOCK_DEFINITIONS = {
 		'poppable': true,
 		'placeable': false,
 		'replaceable': false
+	},
+	'(0, 4)': {
+		'name': 'wood_wall_1',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(1, 4)': {
+		'name': 'wood_wall_2',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(2, 4)': {
+		'name': 'wood_wall_3',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(3, 4)': {
+		'name': 'wood_wall_4',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(4, 4)': {
+		'name': 'wood_wall_5',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(5, 4)': {
+		'name': 'wood_wall_6',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(6, 4)': {
+		'name': 'wood_wall_7',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(7, 4)': {
+		'name': 'wood_wall_8',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(8, 4)': {
+		'name': 'wood_wall_9',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(9, 4)': {
+		'name': 'wood_wall_10',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(10, 4)': {
+		'name': 'wood_wall_11',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 1
+		}
+	},
+	'(13, 4)': {
+		'name': 'wood_door_1',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 2
+		}
+	},
+	'(14, 4)': {
+		'name': 'wood_door_2',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 2
+		}
+	},
+	'(15, 4)': {
+		'name': 'wood_door_3',
+		'poppable': true,
+		'placeable': true,
+		'replaceable': false,
+		'ingredients': {
+			'(0, 23)': 2
+		}
 	}
 }
 

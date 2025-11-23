@@ -74,6 +74,7 @@ func _physics_process(_delta):
 	# and handles collisions, sliding along obstacles.
 	move_and_slide()
 
+# used to pick up blocks
 func add_block(block_atlas_coords:String, block_texture: Texture2D):
 	#if not get_node('pickup').playing:	
 	if block_atlas_coords in inventory:
@@ -84,6 +85,7 @@ func add_block(block_atlas_coords:String, block_texture: Texture2D):
 	get_node('pickup').play()
 	main_game_node.update_inventory_ui(self.inventory)
 
+# used for placing blocks
 func subtract_block(block_atlas_coords:String):
 	if block_atlas_coords in inventory:
 		if inventory[block_atlas_coords]['count'] == 1:
@@ -97,8 +99,12 @@ func subtract_block(block_atlas_coords:String):
 			inventory[block_atlas_coords]['count'] -= 1
 		main_game_node.update_inventory_ui(self.inventory)
 
-func delete_block_from_inventory(block_atlas_coords:String):
+# used for consuming blocks in crafting
+func delete_block_from_inventory(block_atlas_coords:String, quantity:int = 1):
 	if block_atlas_coords in inventory:
-		inventory.erase(block_atlas_coords)
-		main_game_node.gprint('Deleted ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
+		if inventory[block_atlas_coords].count <= quantity:
+			inventory.erase(block_atlas_coords)
+		else:
+			inventory[block_atlas_coords].count -= quantity
+		main_game_node.gprint('Deleted ' + str(quantity) + ' of ' + GlobalVars.BLOCK_DEFINITIONS[block_atlas_coords]['name'])
 		main_game_node.update_inventory_ui(self.inventory)
