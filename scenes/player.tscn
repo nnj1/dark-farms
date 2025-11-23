@@ -61,6 +61,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dqkch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
 }],
 "loop": false,
 "name": &"walk",
@@ -78,7 +81,7 @@ speed = 40.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_fjrip")
 sprite_frames = SubResource("SpriteFrames_fjrip")
-animation = &"pop"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 3)
