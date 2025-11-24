@@ -1,4 +1,5 @@
 extends Node2D
+class_name Animal
 
 @onready var main_game_node = get_tree().get_root().get_node('Main')
 
